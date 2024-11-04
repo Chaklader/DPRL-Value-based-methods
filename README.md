@@ -1284,6 +1284,12 @@ derived from the action-value function using π*(s) = arg max_a∈A(s) q*(s,a).
 - Once the agent determines the optimal action-value function q*, it can quickly obtain an optimal policy π* by setting
   π*(s) = arg maxa∈A(s) q*(s,a).
 
+
+# Monte Carlo Methods 
+
+
+
+
 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 <br>
