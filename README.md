@@ -1237,6 +1237,53 @@ This is an example of a case where multiple optimal actions exist
 Since the question asks for "a potential optimal policy", we need statements that are consistent with the optimal policy
 derived from the action-value function using π*(s) = arg max_a∈A(s) q*(s,a).
 
+### Summary
+
+# Policies
+
+- A **deterministic policy** is a mapping π : 𝒮 → 𝒜. For each state s ∈ 𝒮, it yields the action a ∈ 𝒜 that the agent
+  will choose while in state s.
+
+- A **stochastic policy** is a mapping π : 𝒮 × 𝒜 → [0,1]. For each state s ∈ 𝒮 and action a ∈ 𝒜, it yields the
+  probability π(a|s) that the agent chooses action a while in state s.
+
+# State-Value Functions
+
+- The **state-value function** for a policy π is denoted vπ. For each state s ∈ 𝒮, it yields the expected return if the
+  agent starts in state s and then uses the policy to choose its actions for all time steps. That is, vπ(s) =
+  𝔼π[Gt|St = s]. We refer to vπ(s) as the value of state s under policy π.
+
+- The notation 𝔼π[·] is borrowed from the suggested textbook, where 𝔼π[·] is defined as the expected value of a random
+  variable, given that the agent follows policy π.
+
+# Bellman Equations
+
+- The **Bellman expectation equation** for vπ is:
+  vπ(s) = 𝔼π[Rt+1 + γvπ(St+1)|St = s].
+
+# Optimality
+
+- A policy π' is defined to be better than or equal to a policy π if and only if vπ'(s) ≥ vπ(s) for all s ∈ 𝒮.
+
+- An **optimal policy** π* satisfies π* ≥ π for all policies π. An optimal policy is guaranteed to exist but may not be
+  unique.
+
+- All optimal policies have the same state-value function v*, called the **optimal state-value function**.
+
+# Action-Value Functions
+
+- The **action-value function** for a policy π is denoted qπ. For each state s ∈ 𝒮 and action a ∈ 𝒜, it yields the
+  expected return if the agent starts in state s, takes action a, and then follows the policy for all future time steps.
+  That is, qπ(s,a) = 𝔼π[Gt|St = s, At = a]. We refer to qπ(s,a) as the value of taking action a in state s under a
+  policy π (or alternatively as the value of the state-action pair s,a).
+
+- All optimal policies have the same action-value function q*, called the **optimal action-value function**.
+
+# Optimal Policies
+
+- Once the agent determines the optimal action-value function q*, it can quickly obtain an optimal policy π* by setting
+  π*(s) = arg maxa∈A(s) q*(s,a).
+
 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 <br>
