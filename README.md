@@ -2229,6 +2229,130 @@ This concept derives the algorithm for constant-\(α\) MC control, which uses a 
 step-size parameter \(α\) must satisfy \(0 < α ≤ 1\). Higher values of \(α\) result in faster learning, but if \(α\) is
 too high, it may prevent MC control from converging to \(π^*\).
 
+### Temporal Difference Methods
+
+# Temporal Difference (TD) Methods - Simple to Complex
+
+## Simple Explanation
+
+Think of TD learning like predicting how your day will end while it's still happening. Instead of waiting until the end
+of the day (like Monte Carlo methods), TD methods update predictions during the day based on each event. It's like
+adjusting your expectations of being late to work the moment you hit traffic, rather than waiting until you actually
+arrive.
+
+## Detailed Notes
+
+### 1. Key Concepts
+
+#### TD Learning Basics
+
+- Updates predictions during experience
+- Bootstraps from subsequent predictions
+- Learns from incomplete episodes
+
+#### TD Error Formula:
+
+```
+TD Error = R_{t+1} + γV(S_{t+1}) - V(S_t)
+```
+
+Where:
+
+- R_{t+1} = immediate reward
+- γ = discount factor
+- V(S) = value function
+
+### 2. Main TD Methods
+
+#### TD(0)
+
+- Most basic TD method
+- One-step look-ahead
+- Update formula:
+  ```
+  V(S_t) ← V(S_t) + α[R_{t+1} + γV(S_{t+1}) - V(S_t)]
+  ```
+
+#### SARSA (On-Policy)
+
+- State-Action-Reward-State-Action
+- Updates Q-values using:
+  ```
+  Q(S_t,A_t) ← Q(S_t,A_t) + α[R_{t+1} + γQ(S_{t+1},A_{t+1}) - Q(S_t,A_t)]
+  ```
+
+#### Q-Learning (Off-Policy)
+
+- Learns optimal Q-values directly
+- Update formula:
+  ```
+  Q(S_t,A_t) ← Q(S_t,A_t) + α[R_{t+1} + γ max_a Q(S_{t+1},a) - Q(S_t,A_t)]
+  ```
+
+### 3. Advantages vs Monte Carlo
+
+#### Advantages:
+
+1. Learn during episode
+2. Don't need complete episodes
+3. Work in continuous environments
+
+#### Disadvantages:
+
+1. Biased estimates
+2. More sensitive to initialization
+3. Require more parameters
+
+### 4. Implementation Considerations
+
+#### Learning Rate (α)
+
+- Small α: Slower learning, more stable
+- Large α: Faster learning, less stable
+- Typically 0.1 to 0.5
+
+#### Exploration Strategy
+
+- ε-greedy common
+- Decay ε over time
+- Balance exploration/exploitation
+
+### 5. Best Practices
+
+1. **State Representation**
+    - Keep states meaningful
+    - Avoid state explosion
+    - Consider function approximation
+
+2. **Reward Design**
+    - Clear learning signals
+    - Avoid sparse rewards
+    - Consider shaping rewards
+
+3. **Hyperparameter Tuning**
+    - Start with small learning rate
+    - Gradually adjust parameters
+    - Monitor learning progress
+
+### 6. Common Applications
+
+1. **Game Playing**
+    - Board games
+    - Video games
+    - Real-time strategy
+
+2. **Robotics**
+    - Navigation
+    - Manipulation
+    - Control
+
+3. **Resource Management**
+    - Inventory systems
+    - Traffic control
+    - Power systems
+
+
+
 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 <br>
