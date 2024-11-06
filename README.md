@@ -448,25 +448,25 @@ environment.
 
 # The Setting, Revisited
 
-• The reinforcement learning (RL) framework is characterized by an agent learning to interact with its environment.
-• At each time step, the agent receives the environment's state (the environment presents a situation to the agent), and
+The reinforcement learning (RL) framework is characterized by an agent learning to interact with its environment.
+At each time step, the agent receives the environment's state (the environment presents a situation to the agent), and
 the agent must choose an appropriate action in response. One time step later, the agent receives a reward (the
 environment indicates whether the agent has responded appropriately to the state) and a new state.
-• All agents have the goal to maximize expected cumulative reward, or the expected sum of rewards attained over all time
+All agents have the goal to maximize expected cumulative reward, or the expected sum of rewards attained over all time
 steps.
 
 # Episodic vs. Continuing Tasks
 
-• A task is an instance of the reinforcement learning (RL) problem.
-• Continuing tasks are tasks that continue forever, without end.
-• Episodic tasks are tasks with a well-defined starting and ending point.
+A task is an instance of the reinforcement learning (RL) problem.
+Continuing tasks are tasks that continue forever, without end.
+Episodic tasks are tasks with a well-defined starting and ending point.
 
 - In this case, we refer to a complete sequence of interaction, from start to finish, as an episode.
-  • Episodic tasks come to an end whenever the agent reaches a terminal state.
+  Episodic tasks come to an end whenever the agent reaches a terminal state.
 
 # The Reward Hypothesis
 
-• Reward Hypothesis: all goals can be framed as the maximization of (expected) cumulative reward.
+Reward Hypothesis: all goals can be framed as the maximization of (expected) cumulative reward.
 
 # Goals and Rewards
 
@@ -474,31 +474,31 @@ steps.
 
 # Cumulative Reward
 
-• The return at time step t is $G_t = R_{t+1} + R_{t+2} + R_{t+3} + ...$
-• The agent selects actions with the goal of maximizing expected (discounted) return.
+The return at time step t is $G_t = R_{t+1} + R_{t+2} + R_{t+3} + ...$
+The agent selects actions with the goal of maximizing expected (discounted) return.
 (Note: discounting is covered in the next concept.)
 
 # Discounted Return
 
-• The discounted return at time step t is $G_t = R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + ...$
-• The discount rate γ is something that you set to refine the goal that you have for the agent.
-• It must satisfy 0 ≤ γ ≤ 1.
-• If γ = 0, the agent only cares about the most immediate reward.
-• If γ = 1, the return is not discounted.
-• For larger values of γ, the agent cares more about the distant future. Smaller values of γ result in more extreme
+The discounted return at time step t is $G_t = R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + ...$
+The discount rate γ is something that you set to refine the goal that you have for the agent.
+It must satisfy 0 ≤ γ ≤ 1.
+If γ = 0, the agent only cares about the most immediate reward.
+If γ = 1, the return is not discounted.
+For larger values of γ, the agent cares more about the distant future. Smaller values of γ result in more extreme
 discounting, where - in the most extreme case - agent only cares about the most immediate reward.
 
 # MDPs and One-Step Dynamics
 
-• The state space 𝒮 is the set of all (nonterminal) states.
-• In episodic tasks, we use 𝒮⁺ to refer to the set of all states, including terminal states.
-• The action space 𝒜 is the set of possible actions. (Alternatively, 𝒜(s) refers to the set of possible actions
+The state space 𝒮 is the set of all (nonterminal) states.
+In episodic tasks, we use 𝒮⁺ to refer to the set of all states, including terminal states.
+The action space 𝒜 is the set of possible actions. (Alternatively, 𝒜(s) refers to the set of possible actions
 available in state s ∈ 𝒮)
-• (Please see Part 2 to review how to specify the reward signal in the recycling robot example.)
-• The one-step dynamics of the environment determine how the environment decides the state and reward at every time
+(Please see Part 2 to review how to specify the reward signal in the recycling robot example.)
+The one-step dynamics of the environment determine how the environment decides the state and reward at every time
 step. The dynamics can be defined by specifying p(s', r|s, a) = ℙ(St+1 = s', Rt+1 = r|St = s, At = a) for each possible
 s', r, s, and a.
-• A (finite) Markov Decision Process (MDP) is defined by:
+A (finite) Markov Decision Process (MDP) is defined by:
 
 - a (finite) set of states 𝒮 or 𝒮⁺ (in the case of an episodic task)
 - a (finite) set of actions 𝒜
@@ -625,9 +625,9 @@ Value function might look like:
 # Bellman Equations in Grid World and MDPs
 
 In this gridworld example, once the agent selects an action,
-• it always moves in the chosen direction (contrasting general MDPs where the agent doesn't always have complete control
+it always moves in the chosen direction (contrasting general MDPs where the agent doesn't always have complete control
 over what the next state will be), and
-• the reward can be predicted with complete certainty (contrasting general MDPs where the reward is a random draw from a
+the reward can be predicted with complete certainty (contrasting general MDPs where the reward is a random draw from a
 probability distribution).
 
 In this simple example, we saw that the value of any state can be calculated as the sum of the immediate reward and
@@ -1796,9 +1796,9 @@ In the video above, you learned about ε-greedy policies.
 You can think of the agent who follows an ε-greedy policy as always having a (potentially unfair) coin at its disposal,
 with probability ε of landing heads. After observing a state, the agent flips the coin.
 
-• If the coin lands tails (so, with probability 1 - ε), the agent selects the greedy action.
+If the coin lands tails (so, with probability 1 - ε), the agent selects the greedy action.
 
-• If the coin lands heads (so, with probability ε), the agent selects an action uniformly at random from the set of
+If the coin lands heads (so, with probability ε), the agent selects an action uniformly at random from the set of
 available (non-greedy AND greedy) actions.
 
 In order to construct a policy π that is ε-greedy with respect to the current action-value function estimate Q, we will
@@ -1942,9 +1942,9 @@ Then, once the Q-table closely approximates the action-value function qπ, the a
 
 Furthermore, if the agent alternates between these two steps, with:
 
-• Step 1: using the policy π to construct the Q-table, and
+Step 1: using the policy π to construct the Q-table, and
 
-• Step 2: improving the policy by changing it to be ε-greedy with respect to the Q-table (π' ← ε-greedy(Q), π ← π'),
+Step 2: improving the policy by changing it to be ε-greedy with respect to the Q-table (π' ← ε-greedy(Q), π ← π'),
 
 we will eventually obtain the optimal policy π*.
 
@@ -2061,23 +2061,23 @@ Two key conditions:
 In order to guarantee that MC control converges to the optimal policy π*, we need to ensure that two conditions are met.
 We refer to these conditions as Greedy in the Limit with Infinite Exploration (GLIE). In particular, if:
 
-• every state-action pair s, a (for all s ∈ 𝒮 and a ∈ 𝒜(s)) is visited infinitely many times, and
+every state-action pair s, a (for all s ∈ 𝒮 and a ∈ 𝒜(s)) is visited infinitely many times, and
 
-• the policy converges to a policy that is greedy with respect to the action-value function estimate Q,
+the policy converges to a policy that is greedy with respect to the action-value function estimate Q,
 
 then MC control is guaranteed to converge to the optimal policy (in the limit as the algorithm is run for infinitely
 many episodes). These conditions ensure that:
 
-• the agent continues to explore for all time steps, and
+the agent continues to explore for all time steps, and
 
-• the agent gradually exploits more (and explores less).
+the agent gradually exploits more (and explores less).
 
 One way to satisfy these conditions is to modify the value of ε when specifying an ε-greedy policy. In particular, let
 εᵢ correspond to the i-th time step. Then, both of these conditions are met if:
 
-• εᵢ > 0 for all time steps i, and
+εᵢ > 0 for all time steps i, and
 
-• εᵢ decays to zero in the limit as the time step i approaches infinity (that is, limᵢ→∞ εᵢ = 0).
+εᵢ decays to zero in the limit as the time step i approaches infinity (that is, limᵢ→∞ εᵢ = 0).
 
 For example, to ensure convergence to the optimal policy, we could set εᵢ = 1/i. (You are encouraged to verify that εᵢ >
 0 for all i, and limᵢ→∞ εᵢ = 0.)
@@ -2136,12 +2136,12 @@ Q(Sₜ, Aₜ) ← (1 - α)Q(Sₜ, Aₜ) + αGₜ
 
 Here are some guiding principles that will help you to set the value of α when implementing constant-α MC control:
 
-• You should always set the value for α to a number greater than zero and less than (or equal to) one.
-• If α = 0, then the action-value function estimate is never updated by the agent.
-• If α = 1, then the final value estimate for each state-action pair is always equal to the last return that was
+You should always set the value for α to a number greater than zero and less than (or equal to) one.
+If α = 0, then the action-value function estimate is never updated by the agent.
+If α = 1, then the final value estimate for each state-action pair is always equal to the last return that was
 experienced by the agent (after visiting the pair).
 
-• Smaller values for α encourage the agent to consider a longer history of returns when calculating the action-value
+Smaller values for α encourage the agent to consider a longer history of returns when calculating the action-value
 function estimate. Increasing the value of α ensures that the agent focuses more on the most recently sampled returns.
 
 **Important Note**: When implementing constant-α MC control, you must be careful to not set the value of α too close to
@@ -2471,6 +2471,413 @@ Where:
     - Traffic control
     - Power systems
 
+# Constant-alpha MC Control
+
+## Overview
+
+Constant-alpha MC Control is a reinforcement learning algorithm that combines Monte Carlo methods with a fixed learning
+rate (α) to learn optimal policies. It alternates between two main steps: policy evaluation and policy improvement.
+
+## Key Components
+
+### Policy Evaluation:
+
+- Collects episode: S₀, A₀, R₁, ..., Sₜ using current policy π
+- Updates Q-table for each first visit to state-action pair (Sₜ, Aₜ)
+- Update equation:
+
+  ```textmate
+  Q(Sₜ, Aₜ) ← Q(Sₜ, Aₜ) + α(Gₜ - Q(Sₜ, Aₜ))
+  ```
+
+  where Gₜ := Σˢ₌ₜ₊₁ᵀ γˢ⁻ᵗ⁻¹Rₛ is the return at timestep t
+
+### Policy Improvement:
+
+- Creates improved policy using ε-greedy strategy:
+
+  ```textmate
+  π' ← ε-greedy(Q)
+  π ← π'
+  ```
+
+## How It Works
+
+1. Start with initial policy
+2. **Evaluation**: Collect episode & update Q-table
+3. **Improvement**: Make policy more greedy based on Q-values
+4. Repeat steps 2-3
+
+## Important Notes
+
+- α must be between 0 and 1 (0 < α ≤ 1)
+- Q(Sₜ, Aₜ) contains expected return estimate
+- When Gₜ ≠ Q(Sₜ, Aₜ), value is adjusted by α factor
+- Process continues until optimal policy π* is found
+
+The key insight is that the algorithm gradually improves the policy through iterative evaluation and improvement steps,
+using a constant learning rate to balance between old and new information.
+
+# Comparison of Monte Carlo vs Temporal-Difference Control
+
+## Monte Carlo Control Update
+
+$Q(S_t, A_t) ← Q(S_t, A_t) + α(G_t - Q(S_t, A_t))$
+
+Where:
+
+- Current estimate: $Q(S_t, A_t)$
+- Alternative estimate: $G_t$ (actual return from the episode)
+- α: Learning rate
+- $G_t$ is the complete return from time t until end of episode
+
+## Temporal-Difference Control Update (SARSA)
+
+$Q(S_t, A_t) ← Q(S_t, A_t) + α(R_{t+1} + γQ(S_{t+1}, A_{t+1}) - Q(S_t, A_t))$
+
+Where:
+
+- Current estimate: $Q(S_t, A_t)$
+- Alternative estimate: $R_{t+1} + γQ(S_{t+1}, A_{t+1})$ (immediate reward + discounted next state-action value)
+- α: Learning rate
+- γ: Discount factor
+- $R_{t+1}$: Immediate reward
+- $Q(S_{t+1}, A_{t+1})$: Value of next state-action pair
+
+## Key Differences:
+
+1. **Time Horizon**:
+    - MC: Uses complete episode return ($G_t$)
+    - TD: Uses one-step reward + estimated future value
+
+2. **Update Timing**:
+    - MC: Updates after episode completion
+    - TD: Updates at each time step
+
+3. **Bootstrapping**:
+    - MC: No bootstrapping, uses actual returns
+    - TD: Bootstraps from current estimates
+
+4. **Variance vs Bias**:
+    - MC: Higher variance, unbiased
+    - TD: Lower variance, some bias
+
+This comparison shows how TD methods provide more immediate updates but rely on estimated future values, while MC
+methods wait for actual returns but provide unbiased estimates.
+
+
+
+<br>
+
+![localImage](images/sarsa.png)
+
+<br>
+
+In the algorithm, the number of episodes the agent collects is equal to num_episodes. For every time step t ≥ 0, the
+agent:
+
+1. takes the action Aₜ (from the current state Sₜ) that is ε-greedy with respect to the Q-table,
+2. receives the reward Rₜ₊₁ and next state Sₜ₊₁,
+3. chooses the next action Aₜ₊₁ (from the next state Sₜ₊₁) that is ε-greedy with respect to the Q-table,
+4. uses the information in the tuple (Sₜ, Aₜ, Rₜ₊₁, Sₜ₊₁, Aₜ₊₁) to update the entry Q(Sₜ, Aₜ) in the Q-table
+   corresponding to the current state Sₜ and the action Aₜ.
+
+# SARSA (State-Action-Reward-State-Action) in Reinforcement Learning
+
+## Simple Explanation
+
+SARSA is an on-policy TD control method that learns from the tuple (State, Action, Reward, Next State, Next Action),
+hence the name. Think of it as learning while following your current policy, like learning to cook by actually following
+a recipe and adjusting it based on immediate results.
+
+## Core Components
+
+### 1. Update Formula
+
+```textmate
+Q(St, At) ← Q(St, At) + α[Rt+1 + γQ(St+1, At+1) - Q(St, At)]
+```
+
+Where:
+
+- Q(St, At): Current state-action value
+- α: Learning rate
+- Rt+1: Immediate reward
+- γ: Discount factor
+- Q(St+1, At+1): Next state-action value
+
+### 2. Learning Process
+
+For each step:
+
+1. At state St, choose action At (ε-greedy)
+2. Get reward Rt+1 and next state St+1
+3. Choose next action At+1 (ε-greedy)
+4. Update Q(St, At) using SARSA formula
+5. Set current ← next and repeat
+
+### 3. Key Characteristics
+
+- **On-Policy**: Learns while following current policy
+- **Temporal Difference**: Updates based on immediate rewards
+- **Bootstrapping**: Uses current estimates to update
+
+### 4. Algorithm Flow
+
+```textmate
+Initialize Q(s,a) for all states and actions
+For each episode:
+    Initialize S
+    Choose A from S using policy (e.g., ε-greedy)
+    For each step:
+        Take action A, observe R, S'
+        Choose A' from S' using policy
+        Q(S,A) ← Q(S,A) + α[R + γQ(S',A') - Q(S,A)]
+        S ← S'; A ← A'
+```
+
+## Important Considerations
+
+1. **Learning Rate (α)**
+    - Too high: Unstable learning
+    - Too low: Slow learning
+    - Typical range: 0.1 to 0.5
+
+2. **Exploration Strategy**
+    - Usually ε-greedy
+    - Balance exploration/exploitation
+    - Decrease ε over time
+
+3. **Convergence**
+    - Requires all state-action pairs visited
+    - Appropriate learning rate schedule
+    - Sufficient exploration
+
+## Advantages and Disadvantages
+
+### Advantages:
+
+1. Online learning capability
+2. Simple implementation
+3. Considers actual next action
+4. More conservative than Q-learning
+
+### Disadvantages:
+
+1. Can be slower than Q-learning
+2. May learn suboptimal policy
+3. Sensitive to exploration policy
+
+# Sarsamax (Q-Learning) Algorithm
+
+## Simple Explanation
+
+Sarsamax, also known as Q-learning, is an off-policy TD control method that learns directly about the optimal value
+function Q*, regardless of the policy being followed. The key difference from SARSA is that it uses the maximum Q-value
+for the next state, rather than the Q-value of the actual next action taken.
+
+## Core Update Formula
+
+```
+Q(St, At) ← Q(St, At) + α[Rt+1 + γ max_a Q(St+1, a) - Q(St, At)]
+```
+
+## Algorithm Structure
+
+1. Initialize Q-table arbitrarily
+2. For each episode:
+    - Initialize state S
+    - For each step:
+        - Choose A from S using ε-greedy policy
+        - Take action A, observe R, S'
+        - Update Q(S,A) using max future value
+        - S ← S'
+    - Until S is terminal
+
+## Key Properties
+
+- Off-policy: Learns about optimal policy while following exploration policy
+- Uses maximum Q-value: max_a Q(St+1, a)
+- More aggressive than SARSA
+- Can learn optimal policy even with exploratory actions
+
+## Differences from SARSA
+
+1. **Value Selection**:
+    - SARSA: Uses actual next action value
+    - Sarsamax: Uses maximum next action value
+
+2. **Policy Behavior**:
+    - SARSA: On-policy (follows current policy)
+    - Sarsamax: Off-policy (learns optimal regardless of policy)
+
+## Implementation Considerations
+
+- Learning rate α between 0 and 1
+- Exploration rate ε (typically starting high and decaying)
+- Initial Q-values (optimistic initialization can help)
+- Discount factor γ for future rewards
+
+## Common Applications
+
+1. Robot navigation
+2. Game playing
+3. Resource management
+4. Autonomous systems
+
+# Expected SARSA in Reinforcement Learning
+
+## Simple Explanation
+
+Expected SARSA is a variant of SARSA that, instead of using the value of the actual next action, uses the expected value
+of the next state considering all possible actions weighted by their policy probabilities. Think of it like planning
+your commute time by considering all possible routes and their likelihood, rather than just one specific route.
+
+## Core Algorithm
+
+### Update Formula
+
+```textmate
+Q(St, At) ← Q(St, At) + α[Rt+1 + γ𝔼[Q(St+1, At+1)] - Q(St, At)]
+```
+
+Where:
+
+- 𝔼[Q(St+1, At+1)] = Σa π(a|St+1)Q(St+1, a)
+- π(a|St+1) is the probability of taking action a in state St+1
+
+## Key Differences from SARSA
+
+### 1. Value Calculation
+
+- **SARSA**: Uses actual next action value
+- **Expected SARSA**: Uses weighted average of all possible next actions
+
+### 2. Update Properties
+
+- Less variance than SARSA
+- Slightly more computational cost
+- Often converges faster
+
+## Implementation Details
+
+### Algorithm Steps:
+
+1. Observe current state St
+2. Take action At using policy (e.g., ε-greedy)
+3. Observe reward Rt+1 and next state St+1
+4. Calculate expected value of next state:
+
+   ```textmate
+   Expected_Value = Σa π(a|St+1)Q(St+1, a)
+   ```
+5. Update Q-value using Expected SARSA formula
+
+### For ε-greedy Policy:
+
+Expected value calculation:
+
+```textmate
+𝔼[Q(s', a')] = ε/|A| * Σa Q(s',a) + (1-ε) * maxa Q(s',a)
+```
+
+## Advantages and Disadvantages
+
+### Advantages:
+
+1. Lower variance than SARSA
+2. Better performance in stochastic environments
+3. Eliminates randomness from action selection
+4. More stable learning
+
+### Disadvantages:
+
+1. Higher computational cost per step
+2. More complex implementation
+3. Requires full knowledge of policy probabilities
+
+## Common Applications
+
+1. Complex decision-making tasks
+2. Environments with significant stochasticity
+3. When stability is more important than speed
+
+## Best Practices
+
+1. Use when computational resources allow
+2. Particularly effective with known policies
+3. Consider in risk-sensitive applications
+
+# Greedy in the Limit with Infinite Exploration (GLIE)
+
+The Greedy in the Limit with Infinite Exploration (GLIE) conditions were introduced in the previous lesson, when we
+learned about MC control. There are many ways to satisfy the GLIE conditions, all of which involve gradually decaying
+the value of ε when constructing ε-greedy policies.
+
+In particular, let εᵢ correspond to the i-th time step. Then, to satisfy the GLIE conditions, we need only set εᵢ such
+that:
+
+• εᵢ > 0 for all time steps i, and
+
+• εᵢ decays to zero in the limit as the time step i approaches infinity (that is, limᵢ→∞ εᵢ = 0),
+
+# In Theory
+
+All of the TD control algorithms we have examined (Sarsa, Sarsamax, Expected Sarsa) are guaranteed to converge to the
+optimal action-value function q*, as long as the step-size parameter α is sufficiently small, and the GLIE conditions
+are met.
+
+Once we have a good estimate for q*, a corresponding optimal policy π* can then be quickly obtained by setting π*(s) =
+arg maxa∈𝒜(s) q*(s,a) for all s ∈ 𝒮.
+
+# In Practice
+
+In practice, it is common to completely ignore the GLIE conditions and still recover an optimal policy. (You will see an
+example of this in the solution notebook.)
+
+# Optimism
+
+You have learned that for any TD control method, you must begin by initializing the values in the Q-table. It has been
+shown that initializing the estimates to large values can improve performance. For instance, if all of the possible
+rewards that can be received by the agent are negative, then initializing every estimate in the Q-table to zeros is a
+good technique. In this case, we refer to the initialized Q-table as optimistic, since the action-value estimates are
+guaranteed to be larger than the true action values.
+
+### OpenAI Gym: CliffWalkingEnv
+
+In order to master the algorithms discussed in this lesson, you will write your own implementations in Python. While
+your code will be designed to work with any OpenAI Gym environment, you will test your code with the CliffWalking
+environment.
+
+In the CliffWalking environment, the agent navigates a 4x12 gridworld. Please read about the cliff-walking task in
+Example 6.6 of the textbook(opens in a new tab). When you have finished, you can learn more about the environment in its
+corresponding GitHub file(opens in a new tab), by reading the commented block in the CliffWalkingEnv class. For clarity,
+we have also pasted the description of the environment below (note that the link below to the Sutton and Barto textbook
+may not work, and you're encouraged to use this link(opens in a new tab) to access the textbook):
+
+```textmate
+    """
+    This is a simple implementation of the Gridworld Cliff
+    reinforcement learning task.
+    Adapted from Example 6.6 from Reinforcement Learning: An Introduction
+    by Sutton and Barto:
+    http://people.inf.elte.hu/lorincz/Files/RL_2006/SuttonBook.pdf
+    
+    With inspiration from:
+    https://github.com/dennybritz/reinforcement-learning/blob/master/lib/envs/cliff_walking.py
+    The board is a 4x12 matrix, with (using Numpy matrix indexing):
+        [3, 0] as the start at bottom-left
+        [3, 11] as the goal at bottom-right
+        [3, 1..10] as the cliff at bottom-center
+    Each time step incurs -1 reward, and stepping into the cliff incurs -100 reward 
+    and a reset to the start. An episode terminates when the agent reaches the goal.
+    """
+```
+
+### Analyzing Performance
+
+
+
 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 <br>
@@ -2478,98 +2885,3 @@ Where:
 ![localImage](images/optimal_policy.png)
 
 <br>
-––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-
-[//]: # (Image References)
-
-[image1]: https://user-images.githubusercontent.com/10624937/42135602-b0335606-7d12-11e8-8689-dd1cf9fa11a9.gif "Trained Agents"
-
-[image2]: https://user-images.githubusercontent.com/10624937/42386929-76f671f0-8106-11e8-9376-f17da2ae852e.png "Kernel"
-
-# Value-Based Methods
-
-![Trained Agents][image1]
-
-This repository contains material related to Udacity's Value-based Methods course.
-
-## Table of Contents
-
-### Tutorials
-
-The tutorials lead you through implementing various algorithms in reinforcement learning. All of the code is in
-PyTorch (v0.4) and Python 3.
-
-* [Deep Q-Network](https://github.com/udacity/Value-based-methods/tree/main/dqn): Explore how to use a Deep Q-Network (
-  DQN) to navigate a space vehicle without crashing.
-
-### Labs / Projects
-
-The labs and projects can be found below. All of the projects use rich simulation environments
-from [Unity ML-Agents](https://github.com/Unity-Technologies/ml-agents).
-
-* [Navigation](https://github.com/udacity/Value-based-methods/tree/main/p1_navigation): In the first project, you will
-  train an agent to collect yellow bananas while avoiding blue bananas.
-
-### Resources
-
-* [Cheatsheet](https://github.com/udacity/Value-based-methods/tree/main/cheatsheet): You are encouraged to
-  use [this PDF file](https://github.com/udacity/Value-based-methods/blob/main/cheatsheet/cheatsheet.pdf) to guide your
-  study of reinforcement learning.
-
-## OpenAI Gym Benchmarks
-
-### Box2d
-
-- `LunarLander-v2`
-  with [Deep Q-Networks (DQN)](https://github.com/udacity/Value-based-methods/blob/main/dqn/solution/Deep_Q_Network_Solution.ipynb) |
-  solved in 1504 episodes
-
-## Dependencies
-
-To set up your python environment to run the code in this repository, follow the instructions below.
-
-1. Create (and activate) a new environment with Python 3.6.
-
-    - __Linux__ or __Mac__:
-   ```bash
-   conda create --name drlnd python=3.6
-   source activate drlnd
-   ```
-    - __Windows__:
-   ```bash
-   conda create --name drlnd python=3.6 
-   activate drlnd
-   ```
-
-2. Follow the instructions in [this repository](https://github.com/openai/gym) to perform a minimal install of OpenAI
-   gym.
-    - Install the **box2d** environment group by following the instructions [here](https://github.com/openai/gym#box2d).
-
-3. Clone the repository (if you haven't already!), and navigate to the `python/` folder. Then, install several
-   dependencies.
-
-```bash
-git clone https://github.com/udacity/Value-based-methods.git
-cd Value-based-methods/python
-pip install .
-```
-
-4. Create an [IPython kernel](http://ipython.readthedocs.io/en/stable/install/kernel_install.html) for the `drlnd`
-   environment.
-
-```bash
-python -m ipykernel install --user --name drlnd --display-name "drlnd"
-```
-
-5. Before running code in a notebook, change the kernel to match the `drlnd` environment by using the drop-down `Kernel`
-   menu.
-
-![Kernel][image2]
-
-## Want to learn more?
-
-<p align="center">Come learn with us in the <a href="https://www.udacity.com/course/deep-reinforcement-learning-nanodegree--nd893">Deep Reinforcement Learning Nanodegree</a> program at Udacity!</p>
-
-<p align="center"><a href="https://www.udacity.com/course/deep-reinforcement-learning-nanodegree--nd893">
- <img width="503" height="133" src="https://user-images.githubusercontent.com/10624937/42135812-1829637e-7d16-11e8-9aa1-88056f23f51e.png"></a>
-</p>
