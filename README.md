@@ -2817,9 +2817,9 @@ the value of ε when constructing ε-greedy policies.
 In particular, let εᵢ correspond to the i-th time step. Then, to satisfy the GLIE conditions, we need only set εᵢ such
 that:
 
-• εᵢ > 0 for all time steps i, and
+εᵢ > 0 for all time steps i, and
 
-• εᵢ decays to zero in the limit as the time step i approaches infinity (that is, limᵢ→∞ εᵢ = 0),
+εᵢ decays to zero in the limit as the time step i approaches infinity (that is, limᵢ→∞ εᵢ = 0),
 
 # In Theory
 
@@ -2874,14 +2874,1045 @@ may not work, and you're encouraged to use this link(opens in a new tab) to acce
     """
 ```
 
-### Analyzing Performance
+### RL in Continuous Spaces
+
+# Reinforcement Learning Algorithms
+
+## 1. Model-Based Learning (Dynamic Programming)
+
+Methods that use explicit model of the environment to make decisions.
+
+### Policy Iteration
+
+- Alternates between policy evaluation and policy improvement
+- Converges to optimal policy
+- Uses complete model of environment
+
+### Value Iteration
+
+- Combines policy evaluation and improvement in single operation
+- Directly finds optimal value function
+- More efficient than policy iteration
+
+## 2. Model-Free Learning
+
+Methods that learn directly from experience without requiring a model of the environment.
+
+### Monte Carlo Methods
+
+- Learn from complete episodes
+- No bootstrapping
+- High variance, zero bias
+- Only works for episodic tasks
+- Learn from actual returns
+
+### Temporal-Difference Learning
+
+- Learn from incomplete episodes
+- Bootstraps from value estimates
+- Lower variance, some bias
+- Works for continuing tasks
+- TD(0), SARSA, Q-Learning
+
+## Key Differences
+
+### Model-Based vs Model-Free
+
+1. **Model-Based**:
+    - Requires environment model
+    - More data efficient
+    - Computationally intensive
+    - Better in simple domains
+
+2. **Model-Free**:
+    - No environment model needed
+    - Less data efficient
+    - Computationally lighter
+    - Better in complex domains
+
+### Features
+
+1. **Dynamic Programming**:
+    - Perfect model required
+    - Optimal solution guaranteed
+    - Limited to small state spaces
+
+2. **Monte Carlo**:
+    - No model required
+    - Episode-based learning
+    - High variance, unbiased
+
+3. **TD Learning**:
+    - No model required
+    - Step-based learning
+    - Balance of bias/variance
+
+# Deep Reinforcement Learning Methods
+
+## 1. RL in Continuous Spaces
+
+- Handles infinite state/action spaces
+- Uses function approximation
+- Common in robotics and control
+- Examples: Continuous control, autonomous vehicles
+- Techniques: Neural networks for value function approximation
+
+## 2. Deep Q-Learning (DQN)
+
+- Combines Q-learning with deep neural networks
+- Key features:
+    - Experience replay buffer
+    - Target networks
+    - Convolutional layers for visual input
+- Famous for mastering Atari games
+- Handles high-dimensional state spaces
+
+## 3. Policy Gradients
+
+- Directly optimize policy without value function
+- Advantages:
+    - Natural handling of continuous actions
+    - Probabilistic policies
+    - End-to-end differentiable
+- Examples:
+    - REINFORCE algorithm
+    - PPO (Proximal Policy Optimization)
+    - TRPO (Trust Region Policy Optimization)
+
+## 4. Actor-Critic Methods
+
+- Combines policy gradients and value functions
+- Two components:
+    - Actor: learns policy (what actions to take)
+    - Critic: learns value function (how good are actions)
+- Examples:
+    - A3C (Asynchronous Advantage Actor-Critic)
+    - DDPG (Deep Deterministic Policy Gradient)
+    - SAC (Soft Actor-Critic)
+
+### Common Applications
+
+1. Robotics control
+2. Game playing
+3. Autonomous navigation
+4. Resource management
+5. Recommendation systems
+
+### Key Advantages
+
+1. Handle complex environments
+2. Scale to high dimensions
+3. Learn end-to-end
+4. Deal with continuous spaces
+5. Learn complex behaviors
+
+# Tile Coding in Reinforcement Learning
+
+## Simple Explanation
+
+Tile coding is a type of feature representation that converts continuous states into discrete features by overlaying
+multiple gridlike tilings over the state space, with each tile being a binary feature that's either active (1) or
+inactive (0).
+
+## Core Concepts
+
+### 1. Basic Structure
+
+```textmate
+Single Tiling:
+[0][0][1][0][0]  # Active tile marked as 1
+[0][0][0][0][0]
+[0][0][0][0][0]
+```
+
+### 2. Multiple Tilings
+
+```textmate
+Tiling 1: [0][1][0]
+Tiling 2:  [0][1][0]  # Offset
+Tiling 3:   [1][0][0]  # Further offset
+```
+
+## Key Components
+
+### 1. Tiles
+
+- Binary features (0 or 1)
+- Cover a region of state space
+- Each tile = a part of feature vector
+
+### 2. Tilings
+
+- Multiple overlapping grids
+- Offset from each other
+- Provide generalization
+
+### 3. Parameters
+
+```textmate
+num_tilings = 8  # Number of overlapping grids
+num_tiles = 64  # Tiles per tiling
+offset = 1 / 8  # Displacement between tilings
+```
+
+## Features
+
+### Advantages
+
+1. Simple computation
+2. Good generalization
+3. Works well with linear methods
+4. Memory efficient
+
+### Disadvantages
+
+1. Curse of dimensionality
+2. Fixed resolution
+3. Memory grows with # of tilings
+
+## Implementation Example
+
+```textmate
+class TileCoder:
+    def __init__(self, num_tilings, num_tiles):
+        self.num_tilings = num_tilings
+        self.num_tiles = num_tiles
+
+    def get_tiles(self, state):
+        active_tiles = []
+        for tiling in range(self.num_tilings):
+            # Calculate offset
+            offset = tiling * (1.0 / self.num_tilings)
+            # Get active tile for this tiling
+            tile_index = self.get_tile_index(state, offset)
+            active_tiles.append(tile_index)
+        return active_tiles
+```
+
+## Common Applications
+
+1. Continuous state spaces
+2. Robot control
+3. Game AI
+4. Function approximation
+
+## Mathematical Foundation
+
+- Function approximation: f(s) = Σ θᵢφᵢ(s)
+- Each tile is a basis function φᵢ
+- Weights θᵢ learned through RL
+
+## Design Considerations
+
+1. Number of tilings
+2. Tile size
+3. Offset strategy
+4. Memory requirements
+
+# Coarse Coding in Reinforcement Learning
+
+Coarse coding is a feature representation method where states are encoded using overlapping receptive fields (usually
+circular in 2D). Each feature responds to (activates for) a region of the state space, and the overlap allows for
+generalization.
+
+## Core Concepts
+
+### 1. Receptive Fields
+
+```textmate
+State Space:
+   O   O   O   # Each O represents a receptive field
+    O   O   O  # Fields overlap
+   O   O   O   # State activates multiple fields
+```
+
+### 2. Feature Encoding
+
+- Binary features (0 or 1)
+- Activate when state is within field
+- Multiple fields can be active simultaneously
+
+## Key Components
+
+### 1. Representation
+
+```textmate
+# Example of feature activation
+state = [x, y]  # 2D state
+features = [0, 1, 1, 0, 1, 0]  # Active fields = 1
+```
+
+### 2. Parameters
+
+1. Field size (radius)
+2. Number of fields
+3. Field placement
+4. Degree of overlap
+
+## Properties
+
+### Advantages
+
+1. Natural generalization
+2. Simple computation
+3. Flexible resolution
+4. Works well with continuous spaces
+
+### Disadvantages
+
+1. Needs good field placement
+2. Can be sensitive to parameters
+3. Curse of dimensionality
+
+## Mathematics
+
+```textmate
+Feature activation:
+f(s) = 1 if ||s - c|| ≤ r
+f(s) = 0 otherwise
+
+where:
+s = state
+c = field center
+r = field radius
+```
+
+## Design Considerations
+
+1. Coverage of state space
+2. Overlap degree
+3. Field distribution
+4. Resolution trade-offs
+
+## Comparison with Tile Coding
+
+1. More flexible geometry
+2. Less structured
+3. Different generalization patterns
+4. Often more natural for some problems
+
+## Applications
+
+1. Robotics
+2. Continuous control
+3. Spatial problems
+4. Sensory processing
+
+### Function Approximation
+
+Given a problem domain with continuous states s ∈ 𝒮 = ℝⁿ, we wish to find a way to represent the value function vπ(s) (
+for prediction) or qπ(s,a) (for control).
+
+We can do this by choosing a parameterized function that approximates the true value function:
+
+v̂(s,w) ≈ vπ(s)
+q̂(s,a,w) ≈ qπ(s,a)
+
+Our goal then reduces to finding a set of parameters w that yield an optimal value function. We can use the general
+reinforcement learning framework, with a Monte-Carlo or Temporal-Difference approach, and modify the update mechanism
+according to the chosen function.
+
+# Feature Vectors
+
+A common intermediate step is to compute a feature vector that is representative of the state: x(s)
+
+### Linear Function Approximation
+
+# Gradient Descent in Reinforcement Learning
+
+## Equations and Components
+
+### Value Function:
+
+v̂(s,w) = x(s)ᵀ · w
+
+- Where x(s) is the feature vector
+- w is the parameter vector
+
+### Minimize Error:
+
+J(w) = Eπ[(vπ(s) - x(s)ᵀw)²]
+
+- Mean squared error between true and estimated value
+- Expected value under policy π
+
+### Error Gradient:
+
+∇wJ(w) = -2(vπ(s) - x(s)ᵀw)x(s)
+
+- Derivative of error with respect to parameters
+
+### Update Rule:
+
+Δw = -α(1/2)∇wJ(w)
+= α(vπ(s) - x(s)ᵀw)x(s)
+
+- α is learning rate
+- Updates parameters in direction of steepest descent
+
+### Special Note:
+
+derivative w.r.t. w:
+∇wv̂(s,w) = x(s)
+
+This shows the complete gradient descent process for updating the value function approximation in continuous state
+spaces, using linear function approximation with feature vectors.
+
+# Non-Linear Function Approximation in RL
+
+## Basic Concept
+
+Instead of linear combinations of features (like x(s)ᵀw), non-linear function approximation uses more complex functions,
+typically neural networks.
+
+## Neural Network Representation
+
+### Value Function:
+
+v̂(s,w) = f(s; w)
+
+- f is a neural network
+- w represents all network parameters (weights and biases)
+- s is the input state
+
+### Architecture Examples:
+
+```textmate
+Input Layer → Hidden Layers → Output Layer
+state s → [h₁, h₂, ...] → v̂(s,w)
+```
+
+## Key Components
+
+### 1. Forward Pass
+
+```textmate
+def forward(state, weights):
+    h1 = activation_fn(weights1 @ state)
+    h2 = activation_fn(weights2 @ h1)
+    value = output_layer(h2)
+    return value
+```
+
+### 2. Loss Function:
+
+J(w) = Eπ[(vπ(s) - f(s;w))²]
+
+### 3. Backpropagation:
+
+∇wJ(w) = -2(vπ(s) - f(s;w))∇wf(s;w)
+
+### 4. Update Rule:
+
+w ← w - α∇wJ(w)
+
+## Advantages
+
+1. Can learn complex non-linear relationships
+2. Better representation power
+3. Automatic feature extraction
+4. Handles high-dimensional inputs
+
+## Challenges
+
+1. More parameters to learn
+2. Harder to train/converge
+3. Requires more data
+4. Computationally intensive
+
+## Common Architectures
+
+1. Deep Q-Networks (DQN)
+2. Policy Networks
+3. Value Networks
+4. Actor-Critic Networks
+
+<br>
+
+![localImage](images/dqn.png)
+
+<br>
 
 
+<br>
+
+![localImage](images/learning.png)
+
+<br>
+
+# Value-Based Methods
+
+# Deep Q-Network (DQN)
+
+## Basic Formula
+
+Deep Q-Network approximates action-value function using neural network:
+$Q(s,a;\theta) \approx Q^*(s,a)$
+
+## Key Components
+
+### 1. Loss Function
+
+$L(\theta) = \mathbb{E}_{(s,a,r,s')\sim D}\left[(r + \gamma \max_{a'} Q(s',a';\theta^-) - Q(s,a;\theta))^2\right]$
+
+Where:
+
+- $\theta$: Current network parameters
+- $\theta^-$: Target network parameters
+- $D$: Experience replay buffer
+- $\gamma$: Discount factor
+
+### 2. Target Network Update
+
+$\theta^- \leftarrow \theta$ (periodically)
+
+### 3. Experience Replay Buffer
+
+$(s_t, a_t, r_t, s_{t+1})$ stored in $D$
+
+### 4. ε-greedy Action Selection
+
+$a_t = \begin{cases}
+\arg\max_a Q(s_t,a;\theta) & \text{with probability }1-\epsilon \\
+\text{random action} & \text{with probability }\epsilon
+\end{cases}$
+
+## Algorithm
+
+1. **Initialize**:
+    - Q-network $Q(s,a;\theta)$ with random weights
+    - Target network $Q(s,a;\theta^-)$ with $\theta^- = \theta$
+    - Replay buffer $D$
+
+2. **For each step**:
+   ```textmate
+   Observe state s
+   Select action a using ε-greedy
+   Execute a, observe r, s'
+   Store (s,a,r,s') in D
+   Sample minibatch from D
+   Compute target: y = r + γ max_a' Q(s',a';θ⁻)
+   Update θ using gradient: ∇_θ(y - Q(s,a;θ))²
+   Every N steps: θ⁻ ← θ
+   ```
+
+## Key Innovations
+
+### 1. Experience Replay
+
+$\nabla_\theta L(\theta) = \mathbb{E}_{(s,a,r,s')\sim
+D}\left[(r + \gamma \max_{a'} Q(s',a';\theta^-) - Q(s,a;\theta))\nabla_\theta Q(s,a;\theta)\right]$
+
+### 2. Target Network
+
+$y_t = r_t + \gamma \max_{a'} Q(s_{t+1},a';\theta^-)$
+
+### 3. Double DQN
+
+$y_t = r_t + \gamma Q(s_{t+1},\arg\max_{a'} Q(s_{t+1},a';\theta);\theta^-)$
+
+## Network Architecture
+
+### Input Layer:
+
+$s \in \mathbb{R}^n$ (state space)
+
+### Hidden Layers:
+
+$h_1 = \text{ReLU}(W_1s + b_1)$
+$h_2 = \text{ReLU}(W_2h_1 + b_2)$
+
+### Output Layer:
+
+$Q(s,\cdot) = W_3h_2 + b_3$
+
+## Hyperparameters
+
+- Learning rate ($\alpha$)
+- Discount factor ($\gamma$)
+- Exploration rate ($\epsilon$)
+- Batch size
+- Replay buffer size
+- Target network update frequency
+
+## Performance Improvements
+
+1. Prioritized Experience Replay:
+   $P(i) \propto |\delta_i|^\alpha$
+
+2. Dueling Networks:
+   $Q(s,a;\theta) = V(s;\theta_v) + A(s,a;\theta_a)$
+
+3. Noisy Networks:
+   $y = (μ_w + σ_w ⊙ ε)x + (μ_b +
+
+### Deep Q-Network (DQN)
+
+The Deep Q-Network (DQN) is a type of algorithm in Reinforcement Learning (RL) that helps an "agent" (like a robot or a
+computer) learn to make decisions to achieve the best results in an environment. It combines **Q-learning** (an
+algorithm for finding the best actions to take) with **deep neural networks**.
+
+Here’s a simple breakdown:
+
+1. **Q-Learning Basics**: In traditional Q-learning, an agent learns the "Q-value" for each action in each state, which
+   estimates the future rewards for taking that action. The goal is for the agent to choose actions that maximize
+   rewards over time.
+
+2. **Deep Neural Networks**: Q-learning alone struggles with complex problems (like games or real-world applications)
+   with lots of possible states and actions. DQN solves this by using a deep neural network to approximate the Q-values
+   for actions, letting it handle much larger and more complex environments.
+
+3. **How DQN Works**:
+    - The agent interacts with the environment, and the DQN updates its Q-values based on rewards it gets from each
+      action.
+    - It uses a "replay buffer" (a memory of past experiences) to learn more effectively, helping it avoid overfitting
+      to recent experiences.
+    - A second "target network" helps stabilize learning by setting fixed Q-value targets for short periods, preventing
+      constant updates from making the network unstable.
+
+**Example**: In a video game, the DQN helps the agent (say, a character in the game) learn which moves to make to win or
+get a high score. Over time, the DQN learns to take actions that are more likely to lead to success, without needing
+explicit instructions.
+
+1. ❌ "DQN receives 84x84x1 grayscale game screen"
+
+- Correct: DQN preprocesses game frames into 84x84 grayscale images
+
+2. ✅ "Stack of 4 preprocessed frames used as state"
+
+- Correct: DQN uses 4 consecutive frames to capture temporal information
+
+3. ❌ "DQN takes state and action as input, returns predicted action value"
+
+- Incorrect: DQN takes only state as input and outputs values for all actions
+
+4. ✅ "DQN takes state as input, returns predicted action values for each possible game action"
+
+- Correct: This is the accurate architecture of DQN
+
+5. ❌ "DQN was provided helper functions for pong"
+
+- Incorrect: DQN learns from raw pixels without game-specific helpers
+
+6. ❌ "DQN included CNN and RNN layers"
+
+- Incorrect: Original DQN only used convolutional and fully-connected layers, no RNN
+
+7. ❌ "DQN architecture is fully convolutional"
+
+- Incorrect: DQN uses both convolutional and fully-connected layers
+
+8. ✅ "DQN has convolutional layers followed by fully connected layers"
+
+- Correct: This is the actual architecture of DQN
+
+9. ✅ "DQN was trained from scratch on each Atari game"
+
+- Correct: Each game required separate training from scratch
+
+10. ❌ "DQN was trained on first several games to beat remaining games"
+
+- Incorrect: Each game required its own separate training
+
+The correct answers are: 1, 2, 4, 8, and 9.
+
+These represent the key architectural and training aspects of the original DQN paper.
+
+I'll create three separate notes on these key concepts:
+
+# 1. Deep Q-Network (DQN)
+
+## Basic Principle
+
+DQN combines Q-learning with deep neural networks to handle high-dimensional state spaces.
+
+## Key Formula
+
+$Q(s,a;\theta) \approx Q^*(s,a)$
+
+## Architecture
+
+- Input: State (e.g., preprocessed game frames)
+- Output: Q-values for each possible action
+- Structure:
+  ```
+  Input → Convolutional Layers → Fully Connected Layers → Output (Q-values)
+  ```
+
+## Main Features
+
+1. Input Processing:
+    - 84x84 grayscale images
+    - Stack of 4 frames for temporal information
+
+2. Training:
+    - Loss function: $L(\theta) = \mathbb{E}[(r + \gamma \max_{a'} Q(s',a';\theta^-) - Q(s,a;\theta))^2]$
+    - Gradient descent updates
+
+# 2. Experience Replay
+
+## Basic Principle
+
+Stores and reuses past experiences to break temporal correlations and improve learning efficiency.
+
+## Structure
+
+$D = \{(s_t, a_t, r_t, s_{t+1})\}$ (Replay Buffer)
+
+## Key Components
+
+1. Storage:
+    - Experience tuple: $(s_t, a_t, r_t, s_{t+1})$
+    - Fixed-size buffer
+    - FIFO when buffer is full
+
+2. Sampling:
+    - Random batch selection
+    - Size: typically 32 or 64 experiences
+    - Uniform sampling (or prioritized in advanced versions)
+
+## Benefits
+
+1. Breaks temporal correlations
+2. More efficient use of experiences
+3. Better convergence properties
+4. Enables mini-batch updates
+
+# 3. Fixed Q-Targets
+
+## Basic Principle
+
+Uses a separate target network to provide stable TD targets during training.
+
+## Key Formula
+
+$\Delta w = \alpha \cdot \underbrace{(R + \gamma \max_a \hat{q}(S', a, w^-) - \hat{q}(S, A, w))}_{\text{TD error}}
+\nabla_w\hat{q}(S, A, w)$
+
+Where:
+
+- $w$: Current network parameters
+- $w^-$: Target network parameters (fixed during learning step)
+- $\hat{q}$: Q-value approximator
+
+## Implementation
+
+1. Maintain two networks:
+    - Primary network (updated continuously)
+    - Target network (updated periodically)
+
+2. Update Process:
+    - Use target network for TD target calculation
+    - Update primary network through gradient descent
+    - Periodically copy primary network weights to target network
+
+## Benefits
+
+1. Reduces harmful correlations
+2. Provides stable learning targets
+3. Prevents oscillations in training
+4. Improves convergence stability
+
+### Statements about Deep Q-Learning and fixed Q-targets
+
+1. ✅ "The Deep Q-Learning algorithm uses two separate networks with identical architectures."
+
+- Correct: Both primary and target networks have the same architecture, just different parameter values
+
+2. ❌ "The Deep Q-Learning algorithm uses two separate networks with different architectures."
+
+- Incorrect: The networks have identical architectures
+
+3. ❌ "Every time we update the primary Q-Network, we immediately update the target Q-Network weights, so that they match
+   after each learning step."
+
+- Incorrect: Target network is updated less frequently to maintain stability
+
+4. ✅ "The target Q-Network's weights are updated less often (or more slowly) than the primary Q-Network."
+
+- Correct: Target network is updated periodically, not after every step
+
+5. ✅ "Without fixed Q-targets, we would encounter a harmful form of correlation, whereby we shift the parameters of the
+   network based on a constantly moving target."
+
+- Correct: This is exactly why fixed Q-targets were introduced - to provide stable learning targets
+
+Correct answers: 1, 4, and 5
+
+Key reasons:
+
+- Both networks are identical in structure
+- Target network updates are delayed/less frequent
+- Fixed targets prevent harmful correlations in training
+- This setup provides stability in the learning process
+
+### Double DQN
+
+# Overestimation of Q-values
+
+The first problem we are going to address is the overestimation of action values that Q-learning is prone to.
+
+The update rule for Q-learning with function approximation is
+
+$\Delta w = \alpha(R + \gamma \max_a \hat{q}(S', a, w) - \hat{q}(S, A, w))\nabla_w\hat{q}(S, A, w)$
+
+where $R + \gamma \max_a \hat{q}(S', a, w)$ is the TD target.
+
+# TD Target
+
+To better under the max operation in TD target, we write the formula for TD target and expand the max operation
+
+$R + \gamma\hat{q}(S', \arg\max_a \hat{q}(S', a, w), w)$
+
+It's possible for the arg max operation to make mistake, especially in the early stages. This is because the Q-value
+$\hat{q}$ is still evolving, we may not have gathered enough information to figure out the best action. The accuracy of
+Q-values depends a lot on what what actions have been tried, and what neighboring states have been explored.
+
+# Double Q-Learning
+
+Double Q-learning can make estimation more robust by selecting the best action using one set of parameters $w$, but
+evaluating it using a different set of parameters $w'$.
+
+$R + \gamma\hat{q}(S', \arg\max_a \hat{q}(S', a, w), w')$
+
+Where do we get second set of parameters $w'$ from?
+
+1. In the original formula of double Q-learning, two value functions are basically maintained, and randomly choose one
+   of them to update at each step using the other only for evaluating actions.
+2. When using DQNs with fixed Q targets, we already have an alternate set of parameters $w^-$. Since $w^-$ has been kept
+   frozen for a while, it is different enough from $w$ that it can be reused for this purpose.
+
+### Double DQN
+
+Double DQN solves the problem of Q-value overestimation in regular DQN by using two separate networks for action
+selection and action evaluation. Think of it like getting a second opinion: one network (the primary network) picks what
+it thinks is the best action, but instead of also evaluating how good that action is (which could be biased), it asks
+another network (the target network) to evaluate the action's value. This separation prevents the algorithm from being
+overconfident about its value estimates, similar to how having two independent experts is often better than relying on a
+single expert's opinion for both selection and evaluation. The target network provides a more stable and unbiased
+estimate because it's updated less frequently and isn't directly involved in choosing the actions, which helps reduce
+the tendency to overestimate Q-values that often occurs in standard DQN.
+
+# Overestimation of Q-values
+
+The first problem we are going to address is the overestimation of action values that Q-learning is prone to.
+
+The update rule for Q-learning with function approximation is
+
+$\Delta w = \alpha(R + \gamma \max_a \hat{q}(S', a, w) - \hat{q}(S, A, w))\nabla_w\hat{q}(S, A, w)$
+
+where $R + \gamma \max_a \hat{q}(S', a, w)$ is the TD target.
+
+# TD Target
+
+To better under the max operation in TD target, we write the formula for TD target and expand the max operation
+
+$R + \gamma\hat{q}(S', \arg\max_a \hat{q}(S', a, w), w)$
+
+It's possible for the arg max operation to make mistake, especially in the early stages. This is because the Q-value
+$\hat{q}$ is still evolving, we may not have gathered enough information to figure out the best action. The accuracy of
+Q-values depends a lot on what actions have been tried, and what neighboring states have been explored.
+
+# Double Q-Learning
+
+Double Q-learning can make estimation more robust by selecting the best action using one set of parameters $w$, but
+evaluating it using a different set of parameters $w'$.
+
+$R + \gamma\hat{q}(S', \arg\max_a \hat{q}(S', a, w), w')$
+
+Where do we get second set of parameters $w'$ from?
+
+1. In the original formula of double Q-learning, two value functions are basically maintained, and randomly choose one
+   of them to update at each step using the other only for evaluating actions.
+2. When using DQNs with fixed Q targets, we already have an alternate set of parameters $w^-$. Since $w^-$ has been kept
+   frozen for a while, it is different enough from $w$ that it can be reused for this purpose.
+
+### Prioritized Experience Replay
+
+Prioritized Experience Replay improves on standard experience replay by remembering experiences based on how surprising
+or important they are, rather than just randomly. Think of it like a student focusing more on homework problems they got
+wrong (high surprise/error) rather than ones they already understand well. In reinforcement learning terms, experiences
+with larger TD errors (difference between predicted and actual rewards) are sampled more frequently during training
+because they represent situations where the agent's predictions were most wrong and thus have more potential for
+learning. Each experience gets a priority score based on its TD error, and experiences with higher priorities are more
+likely to be selected for training. It's like having a smart study plan where you spend more time on material you don't
+understand well, making learning more efficient than if you reviewed everything equally.
+
+# TD error delta
+
+Criteria used to assign priorities to each tuple
+Formula: $\delta_t = R_{t+1} + \gamma \max_a \hat{q}(S_{t+1}, a, w) - \hat{q}(S_t, A_t, w)$
+The bigger the error, the more we expect to learn from that tuple
+
+# Measure of Priority
+
+The magnitude of TD error
+Formula: $p_t = |\delta_t|$
+Priority is stored along with each corresponding tuple in the replay buffer
+
+# Sampling Probability
+
+Computed from priority when creating batches
+Formula: $P(i) = \frac{p_i}{\sum_k p_k}$
+
+# Improvement on Prioritized Experience Replay
+
+## TD Error is Zero
+
+Problem: If the TD error is zero, then the priority value of the tuple and hence its probability of being picked will
+also be zero.
+Solution: To prevent tuples from being starved for selection, add small constant ε: $p_t = |\delta_t| + \epsilon$
+
+## Greedy Usage of Priority Values
+
+Problem: Greedily using priority values may lead to a small subset of experiences being replayed repeatedly.
+Solution: Reintroduce uniform random sampling with parameter α:
+$P(i) = \frac{p_i^α}{\sum_k p_k^α}$
+
+# Adjustment to the Update Rule
+
+We use prioritized experience replay with adjustment:
+
+$\Delta w = \alpha(\frac{1}{N} \cdot \frac{1}{P_i})^b \delta_t \nabla_w \hat{q}(S_t, A_t, w)$
+
+where $(\frac{1}{N} \cdot \frac{1}{P_i})^b$ stands for the importance-sampling weight.
+
+### Dueling DQN
+
+Dueling DQN splits the Q-value estimation into two parts: how good is the state by itself (Value), and how much better
+or worse are specific actions in that state (Advantage). It's like separating "how good is it to be in this room" from "
+what's the best door to take from here" - sometimes the state value matters more than specific actions.
+
+The core idea of dueling networks is to use two streams
+
+1. one stream estimates the state value function: $V(s)$
+2. one stream estimates the advantage for each action: $A(s,a)$
+
+Finally, by combining the state and advantage values, we are able to obtain the desired Q-values:
+
+$Q(s,a) = V(s) + A(s,a)$
+
+This represents the fundamental equation of Dueling DQN, where:
+
+- $V(s)$ represents how good a state is overall
+- $A(s,a)$ represents how much better an action is compared to others
+- $Q(s,a)$ gives the total action-value by combining both components
+
+## Architecture
+
+### Value Stream:
+
+$V(s; \theta, \beta)$ - Estimates state value
+
+```textmate
+State → Hidden Layers → V(s)
+```
+
+### Advantage Stream:
+
+$A(s,a; \theta, \alpha)$ - Estimates relative advantage of each action
+
+```textmate
+State → Hidden Layers → A(s,a)
+```
+
+### Combining Streams:
+
+$Q(s,a) = V(s) + (A(s,a) - \frac{1}{|A|}\sum_{a'}A(s,a'))$
+
+## Mathematical Formulation
+
+### Q-Value Calculation:
+
+$Q(s,a; \theta, \alpha, \beta) = V(s; \theta, \beta) + A(s,a; \theta, \alpha) - \frac{1}{|A|}\sum_{a'}A(s,a'; \theta,
+\alpha)$
+
+Where:
+
+- $\theta$: Shared network parameters
+- $\alpha$: Advantage stream parameters
+- $\beta$: Value stream parameters
+
+## Advantages
+
+1. Better policy evaluation
+2. Faster learning for states with similar action values
+3. More robust value estimates
+4. Improved learning stability
+
+## Example
+
+```textmate
+class DuelingDQN(nn.Module):
+    def __init__(self):
+        self.shared = nn.Sequential(...)
+        self.value = nn.Sequential(...)
+        self.advantage = nn.Sequential(...)
+
+    def forward(self, x):
+        shared = self.shared(x)
+        value = self.value(shared)
+        advantage = self.advantage(shared)
+        q_value = value + (advantage - advantage.mean())
+        return q_value
+```
+
+# Rainbow DQN - Combined DQN Improvements
+
+## Simple Explanation
+
+Rainbow DQN combines six key improvements to DQN into one powerful algorithm, like taking the best features from
+different car models to build a super-car. It integrates Double Q-learning, Prioritized Experience Replay, Dueling
+Networks, Multi-step Learning, Distributional RL, and Noisy Nets into one framework, achieving better performance than
+any single improvement alone.
+
+## Components Integration
+
+1. **Double Q-Learning**
+
+- Prevents overestimation of Q-values
+- Uses separate networks for selection and evaluation
+
+2. **Prioritized Experience Replay**
+
+- Prioritizes important experiences
+- Learns more from significant transitions
+
+3. **Dueling Networks**
+
+- Separates state value and action advantage
+- $Q(s,a) = V(s) + A(s,a)$
+
+4. **Multi-step Learning**
+
+- Uses n-step returns instead of single-step
+- Balances bias and variance better
+
+5. **Distributional RL**
+
+- Models value distribution instead of mean
+- Captures uncertainty in predictions
+
+6. **Noisy Nets**
+
+- Adds parametric noise to weights
+- Provides state-dependent exploration
+
+## Key Benefits
+
+1. Better sample efficiency
+2. Improved exploration
+3. More stable learning
+4. State-of-the-art performance
+5. Better handling of uncertainty
+
+Think of Rainbow as a "greatest hits" album of DQN improvements, where each enhancement addresses a specific limitation
+of the original algorithm, working together to create a more powerful learning system.
 
 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 <br>
 
-![localImage](images/optimal_policy.png)
+![localImage](images/learning.png)
 
 <br>
