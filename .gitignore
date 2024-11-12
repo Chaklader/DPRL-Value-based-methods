@@ -9,6 +9,9 @@ processed-celeba-small.zip
 *.so
 /lectures/DCGAN_Training/data
 
+p1_navigation/Banana.app
+p1_navigation/Banana.app.zip
+
 # Distribution / packaging
 .Python
 build/
