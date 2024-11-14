@@ -1,6 +1,0 @@
-Collecting h5py
-  Using cached h5py-3.12.1-cp310-cp310-macosx_11_0_arm64.whl.metadata (2.5 kB)
-Requirement already satisfied: numpy>=1.19.3 in /opt/miniconda3/envs/unity_rl/lib/python3.10/site-packages (from h5py) (1.21.2)
-Using cached h5py-3.12.1-cp310-cp310-macosx_11_0_arm64.whl (2.9 MB)
-Installing collected packages: h5py
-Successfully installed h5py-3.12.1
