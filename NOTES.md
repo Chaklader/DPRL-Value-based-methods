@@ -1011,7 +1011,7 @@ $Q*(s,a) = \sum_{s',r} p(s',r|s,a)[r + \gamma \max_{a'} Q*(s',a')]$
 Consider a simple grid world with Q-values:
 
 ```textmate
-State A: 
+State A:
 Q(A, right) = 1.0
 Q(A, down) = 0.5
 
@@ -2164,7 +2164,7 @@ function estimate. Increasing the value of α ensures that the agent focuses mor
 
 ### Monte Carlo Methods
 
-**Monte Carlo Methods**  
+**Monte Carlo Methods**
 Even though the underlying problem involves a great degree of randomness, useful information can be inferred by
 collecting many samples. The equiprobable random policy is a stochastic policy where the agent randomly selects from the
 set of available actions in each state, with each action having an equal probability.
@@ -2862,14 +2862,14 @@ may not work, and you're encouraged to use this link(opens in a new tab) to acce
     Adapted from Example 6.6 from Reinforcement Learning: An Introduction
     by Sutton and Barto:
     http://people.inf.elte.hu/lorincz/Files/RL_2006/SuttonBook.pdf
-    
+
     With inspiration from:
     https://github.com/dennybritz/reinforcement-learning/blob/master/lib/envs/cliff_walking.py
     The board is a 4x12 matrix, with (using Numpy matrix indexing):
         [3, 0] as the start at bottom-left
         [3, 11] as the goal at bottom-right
         [3, 1..10] as the cliff at bottom-center
-    Each time step incurs -1 reward, and stepping into the cliff incurs -100 reward 
+    Each time step incurs -1 reward, and stepping into the cliff incurs -100 reward
     and a reset to the start. An episode terminates when the agent reaches the goal.
     """
 ```
@@ -3909,7 +3909,7 @@ any single improvement alone.
 Think of Rainbow as a "greatest hits" album of DQN improvements, where each enhancement addresses a specific limitation
 of the original algorithm, working together to create a more powerful learning system.
 
-––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 <br>
 
