@@ -213,12 +213,14 @@ $v_{\pi'}(s) > v_\pi(s)$.
 
 The proof follows from the definition of the action-value function and the recursive nature of the return:
 
-$$ \begin{align*} v*\pi(s) &\leq q*\pi(s, \pi'(s)) \ &= \mathbb{E}[R_{t+1} + \gamma v_\pi(S_{t+1}) | S_t = s, A_t =
+$$
+\begin{align*} v*\pi(s) &\leq q*\pi(s, \pi'(s)) \ &= \mathbb{E}[R_{t+1} + \gamma v_\pi(S_{t+1}) | S_t = s, A_t =
 \pi'(s)] \ &\leq \mathbb{E}[R_{t+1} + \gamma q_\pi(S_{t+1}, \pi'(S_{t+1})) | S_t = s, A_t = \pi'(s)] \ &=
 \mathbb{E}*{\pi'}[R*{t+1} + \gamma R_{t+2} + \gamma^2 v_\pi(S_{t+2}) | S_t = s] \ &\leq \mathbb{E}_{\pi'}[R_{t+1} +
 \gamma R*{t+2} + \gamma^2 q*\pi(S*{t+2}, \pi'(S*{t+2})) | S*t = s] \ &= \mathbb{E}*{\pi'}[R*{t+1} + \gamma R*{t+2} +
 \gamma^2 R*{t+3} + \gamma^3 v*\pi(S*{t+3}) | S_t = s] \ &\leq \ldots \ &\leq \mathbb{E}*{\pi'}[R*{t+1} + \gamma
-R*{t+2} + \gamma^2 R*{t+3} + \ldots | S_t = s] \ &= v*{\pi'}(s) \end{align\*} $$
+R*{t+2} + \gamma^2 R*{t+3} + \ldots | S_t = s] \ &= v*{\pi'}(s) \end{align\*}
+$$
 
 This theorem is fundamental because it guarantees that policy improvement steps will monotonically increase policy
 quality until an optimal policy is reached.
@@ -808,3 +810,201 @@ Each algorithm makes different choices regarding:
 - **Granularity of Interaction**: How frequently evaluation and improvement alternate
 - **Completeness of Evaluation**: How accurately the value function approximates $v_\pi$
 - **Extent of Improvement**: How closely the policy approaches
+
+- **Extent of Improvement**: How closely the policy approaches greediness
+- **Policy Representation**: Whether the policy is stored explicitly or implicitly via the value function
+- **Update Targets**: Whether updates target state values, action values, or both
+- **Source of Experience**: Whether updates use model-generated or real experience
+
+The flexibility of the GPI framework explains why reinforcement learning can encompass such a diverse range of
+algorithms while maintaining theoretical coherence.
+
+#### Efficiency of Dynamic Programming
+
+##### Computational Complexity
+
+Dynamic programming methods provide guaranteed solutions to MDPs, but their computational requirements must be carefully
+considered:
+
+1. **Time Complexity**:
+    - **Policy Iteration**: The time complexity is dominated by the policy evaluation phase, which requires solving a
+      system of $|S|$ linear equations. Using iterative methods, each policy evaluation phase requires $O(|S|^2)$
+      operations per iteration, with the number of iterations depending on the convergence criterion. The policy
+      improvement phase requires $O(|S|^2|A|)$ operations. Overall, if policy evaluation takes $k$ iterations to
+      converge and policy iteration requires $m$ iterations, the total complexity is $O(mk|S|^2 + m|S|^2|A|)$.
+    - **Value Iteration**: Each iteration requires $O(|S|^2|A|)$ operations, and the number of iterations until
+      convergence is approximately $\log(1/\epsilon)/(1-\gamma)$, where $\epsilon$ is the desired precision. This gives
+      a total complexity of $O(|S|^2|A|\log(1/\epsilon)/(1-\gamma))$.
+    - **Asynchronous Methods**: The computational complexity depends on the specific update ordering strategy, but can
+      be significantly less than synchronous methods when updates are prioritized effectively.
+2. **Space Complexity**:
+    - All DP methods require storing the value function, which takes $O(|S|)$ space.
+    - Policy iteration additionally requires storing the policy, taking another $O(|S|)$ space.
+    - Prioritized sweeping and other asynchronous methods may require additional data structures, such as priority
+      queues, adding to the space complexity.
+3. **Convergence Rate**:
+    - The rate of convergence is primarily determined by the discount factor $\gamma$. As $\gamma$ approaches 1, the
+      number of iterations required for convergence increases substantially.
+    - For a desired accuracy $\epsilon$, value iteration requires approximately $\log(1/\epsilon)/(1-\gamma)$
+      iterations.
+    - Policy iteration typically converges in fewer iterations than value iteration, but each iteration is more
+      computationally intensive.
+
+These polynomial time and space complexities make DP methods significantly more efficient than naive approaches that
+would enumerate all possible policies (which would be exponential in the state space size). Nevertheless, the quadratic
+dependence on the state space size limits the direct application of DP to problems with moderately sized state spaces.
+
+##### Curse of Dimensionality
+
+The most significant limitation of dynamic programming approaches is the "curse of dimensionality" - a term coined by
+Richard Bellman, the originator of dynamic programming. This refers to the exponential growth in the size of the state
+space as the number of state variables increases:
+
+1. **Exponential State Space Growth**:
+    - If a state is described by $n$ variables, each with $k$ possible values, then the state space size is $k^n$.
+    - For example, a problem with 10 binary state variables has $2^{10} = 1,024$ states, while one with 20 such
+      variables has over a million states.
+    - Real-world problems often have dozens or hundreds of state variables, making the state space astronomically large.
+2. **Ramifications for DP**:
+    - Since DP methods typically require storage and computation proportional to the size of the state space, they
+      become impractical for high-dimensional problems.
+    - Even with modern computing power, problems with more than a handful of continuous variables or more than a dozen
+      discrete variables quickly become intractable for exact DP approaches.
+3. **Manifestations of the Curse**:
+    - **Memory Requirements**: The value function representation requires memory proportional to the state space size.
+    - **Computational Time**: The time to perform sweeps through the state space grows exponentially with the
+      dimensionality.
+    - **Data Sparsity**: In high-dimensional spaces, available data becomes sparse, making it difficult to estimate
+      transition probabilities accurately.
+4. **Addressing the Curse**:
+    - **Function Approximation**: Representing value functions with parametric approximators instead of tabular
+      representations.
+    - **State Abstraction**: Grouping similar states together to reduce the effective state space size.
+    - **Hierarchical Methods**: Decomposing problems into smaller subproblems with more manageable state spaces.
+    - **Sampling-Based Approaches**: Using Monte Carlo methods to sample relevant parts of the state space.
+    - **Factored Representations**: Exploiting structure in the state space to represent and compute with it more
+      efficiently.
+
+Despite these mitigation strategies, the curse of dimensionality remains a fundamental challenge in applying DP to
+complex real-world problems, and is a primary motivation for the development of alternative reinforcement learning
+approaches.
+
+##### Practical Limitations
+
+Beyond computational complexity and the curse of dimensionality, dynamic programming methods face several practical
+limitations that restrict their applicability:
+
+1. **Model Requirement**:
+    - DP methods require a complete and accurate model of the environment, specifically the transition probabilities
+      $p(s',r|s,a)$.
+    - In many real-world applications, such models are not available or are prohibitively expensive to obtain.
+    - Even when models can be learned, inaccuracies can lead to suboptimal policies ("model bias").
+2. **Stationarity Assumption**:
+    - DP methods assume that the MDP is stationary – that the transition probabilities and rewards do not change over
+      time.
+    - Many real-world systems are non-stationary, with dynamics that evolve over time due to external factors or wear
+      and tear.
+3. **Full Observability Requirement**:
+    - Standard DP assumes full observability of the state, which is often not realistic in applications with sensor
+      limitations or partial information.
+    - Partial observability requires extending to partially observable MDPs (POMDPs), which are significantly more
+      complex to solve.
+4. **Discrete State and Action Spaces**:
+    - Classical DP methods are formulated for discrete state and action spaces.
+    - Many practical problems involve continuous spaces, requiring discretization (which can introduce approximation
+      errors) or extensions of DP to continuous spaces.
+5. **Lack of Exploration Mechanisms**:
+    - DP assumes access to the complete model and thus doesn't intrinsically address the exploration-exploitation
+      dilemma present in online learning scenarios.
+    - This limits its direct application to settings where learning must occur through interaction.
+6. **Implementation Challenges**:
+    - Efficient implementation of DP requires careful consideration of data structures and algorithm design.
+    - Numerical issues can arise in value iteration due to the compounding of small errors across many iterations.
+    - In asynchronous methods, determining an effective update ordering can be non-trivial.
+7. **Scalability Issues**:
+    - Even with polynomial time complexity, the practical scalability of DP is limited by available computational
+      resources.
+    - Real-time applications may not afford the luxury of waiting for DP algorithms to converge.
+
+Despite these limitations, understanding DP methods is crucial for reinforcement learning practitioners, as they provide
+the theoretical foundation for many more scalable approaches and offer insights into the structure of optimal solutions.
+
+##### Real-world Applications
+
+Despite their limitations, dynamic programming methods have found successful application in various domains where the
+problems are sufficiently structured and well-modeled:
+
+1. **Resource Allocation and Management**:
+    - **Inventory Management**: Determining optimal inventory levels to minimize costs while meeting demand.
+    - **Energy Systems**: Optimizing energy generation, storage, and distribution in power grids.
+    - **Water Resource Management**: Managing reservoir operations to balance flood control, hydropower generation, and
+      water supply.
+    - **Network Flow Optimization**: Routing traffic, data, or commodities through networks to minimize congestion or
+      costs.
+2. **Operations Research Problems**:
+    - **Production Planning**: Scheduling manufacturing operations to maximize efficiency.
+    - **Supply Chain Optimization**: Coordinating procurement, production, and distribution decisions.
+    - **Logistics**: Vehicle routing, warehouse operations, and distribution planning.
+    - **Project Scheduling**: Allocating resources to project tasks under constraints.
+3. **Finance and Economics**:
+    - **Portfolio Optimization**: Determining optimal asset allocations to balance risk and return.
+    - **Option Pricing**: Computing fair prices for financial derivatives.
+    - **Economic Policy Analysis**: Modeling the effects of taxation, regulation, and monetary policy.
+    - **Retirement Planning**: Optimizing savings and withdrawal strategies.
+4. **Games and Entertainment**:
+    - **Board Games**: Computing optimal strategies for games like backgammon, checkers, and simplified poker variants.
+    - **Video Game AI**: Controlling non-player characters to provide engaging challenges.
+    - **Sports Analytics**: Developing game strategies and player substitution policies.
+5. **Robotics and Control Systems**:
+    - **Simplified Robot Navigation**: Planning paths in discretized environments.
+    - **Manufacturing Automation**: Controlling robotic systems in structured industrial settings.
+    - **Elevator Control**: Optimizing elevator dispatching to minimize wait times.
+    - **Climate Control**: Managing HVAC systems in buildings.
+6. **Healthcare**:
+    - **Treatment Planning**: Optimizing sequences of medical interventions.
+    - **Resource Allocation**: Managing hospital beds, operating rooms, and staff.
+    - **Epidemic Control**: Determining vaccination and quarantine strategies.
+    - **Medical Imaging**: Planning radiation therapy to maximize tumor treatment while minimizing damage to healthy
+      tissue.
+7. **Communication Systems**:
+    - **Network Routing**: Directing packets through communication networks.
+    - **Channel Allocation**: Assigning frequency bands in wireless communications.
+    - **Data Compression**: Developing optimal encoding strategies.
+
+For these applications, dynamic programming has been particularly successful when:
+
+- The state and action spaces are naturally discrete or can be effectively discretized.
+- The system dynamics are well-understood and can be accurately modeled.
+- The problem size is moderate, with state spaces not exceeding a few million states.
+- Offline computation is acceptable, with solutions being computed ahead of time and then implemented.
+
+In many cases, approximate dynamic programming methods or hybrid approaches combining DP with other techniques are used
+to address larger, more complex versions of these problems.
+
+### Summary
+
+Dynamic Programming represents the first algorithmic framework we've explored for solving Markov Decision Processes.
+Through systematic value-based approaches, DP methods provide mathematically sound techniques for finding optimal
+policies.
+
+The core algorithms—policy iteration and value iteration—offer complementary approaches to solving MDPs through
+iterative refinement of value functions and policies. Policy iteration alternates between complete policy evaluation and
+policy improvement phases, while value iteration combines these operations into a single update that directly
+approximates the optimal value function.
+
+Asynchronous dynamic programming methods extend these approaches by allowing flexible update orderings, which can
+significantly improve computational efficiency by focusing on relevant parts of the state space. Prioritized sweeping
+exemplifies this approach by directing computational resources to states with the most significant value changes.
+
+The Generalized Policy Iteration framework provides a unifying perspective on these methods by viewing them as
+interacting processes of evaluation and improvement, driving both the value function and policy toward optimality. This
+conceptual framework extends beyond dynamic programming to encompass virtually all reinforcement learning methods.
+
+Despite their theoretical elegance and guaranteed convergence, dynamic programming methods face significant practical
+limitations, particularly the curse of dimensionality and the requirement for a complete environment model. These
+limitations motivate the development of more scalable model-free approaches like temporal-difference learning and more
+efficient sampling-based planning methods.
+
+Nevertheless, dynamic programming remains foundational to reinforcement learning, providing the theoretical
+underpinnings for more advanced methods and serving as a benchmark for algorithm development. Understanding DP is
+crucial for appreciating the goals, challenges, and solutions in the broader field of reinforcement learning.
