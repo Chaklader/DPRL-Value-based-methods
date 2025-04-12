@@ -89,7 +89,7 @@ time step, rather than waiting until the end.
 
 ```mermaid
 flowchart TD
-    A[Initialize V(s)] --> B[Start episode:<br>Initialize state S]
+    A["Initialize V(s)] --> B[Start episode:<br>Initialize state S"]
     B --> C[Take action A<br>following policy π]
     C --> D[Observe R, S']
     D --> E["Update V(S):<br>V(S) ← V(S) + α[R + γV(S') - V(S)]"]
@@ -489,7 +489,7 @@ were treated as a batch.
 flowchart TD
     A[Initialize value function V] --> B[For each state S in batch]
     B --> C[Compute average TD error<br>across all transitions from S]
-    C --> D[Update V(S) based on<br>average TD error]
+    C --> D["Update V(S) based on<br>average TD error"]
     D --> E{All states<br>processed?}
     E -->|No| B
     E -->|Yes| F{Converged?}
@@ -672,7 +672,7 @@ policy that's generating behavior.
 
 ```mermaid
 flowchart TD
-    A[Initialize Q(s,a)] --> B[Start episode:<br>Initialize state S]
+    A["Initialize Q(s,a)] --> B[Start episode:<br>Initialize state S"]
     B --> C["Choose A from S<br>using policy from Q<br>(e.g., ε-greedy)"]
     C --> D[Take action A<br>Observe R, S']
     D --> E["Choose A' from S'<br>using policy from Q"]
@@ -902,7 +902,7 @@ makes Q-learning particularly sample-efficient in many environments.
 
 ```mermaid
 flowchart TD
-    A[Initialize Q(s,a)] --> B[Start episode:<br>Initialize state S]
+    A["Initialize Q(s,a)] --> B[Start episode:<br>Initialize state S"]
     B --> C["Choose A from S<br>using policy from Q<br>(e.g., ε-greedy)"]
     C --> D[Take action A<br>Observe R, S']
     D --> E["Update Q(S,A):<br>Q(S,A) ← Q(S,A) + α[R + γ max<sub>a'</sub> Q(S',a') - Q(S,A)]"]
@@ -1122,7 +1122,7 @@ policy, while actions are selected according to the behavior policy.
 
 ```mermaid
 flowchart TD
-    A[Initialize Q(s,a)] --> B[Start episode:<br>Initialize state S]
+    A["Initialize Q(s,a)] --> B[Start episode:<br>Initialize state S"]
     B --> C["Choose A from S<br>using behavior policy"]
     C --> D[Take action A<br>Observe R, S']
     D --> E["Update Q(S,A):<br>Q(S,A) ← Q(S,A) + α[R + γ Σ<sub>a'</sub> π(a'|S')Q(S',a') - Q(S,A)]"]
@@ -1539,7 +1539,7 @@ important:
 These practical implementations have extended double Q-learning's applicability to a wide range of reinforcement
 learning problems, establishing it as a standard technique for addressing maximization bias in value-based methods.
 
-### Summary of Temporal-Difference Learning
+#### Summary of Temporal-Difference Learning
 
 Temporal-Difference (TD) learning represents a fundamental class of reinforcement learning methods that combine the
 sampling approach of Monte Carlo methods with the bootstrapping characteristic of dynamic programming. This unique
