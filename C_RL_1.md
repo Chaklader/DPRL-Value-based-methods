@@ -137,7 +137,7 @@ The k-armed bandit problem serves as a fundamental building block for understand
 scenarios. While it doesn't involve sequential state transitions (as in Markov Decision Processes), it captures the
 essential exploration-exploitation dilemma that characterizes all reinforcement learning problems.
 
-#### 2. Action-Value Methods
+#### Action-Value Methods
 
 ##### Sample-Average Methods
 
@@ -262,7 +262,7 @@ For example, when comparing greedy and ε-greedy policies on the 10-armed testbe
 The empirical evaluation of these metrics provides insights into which algorithms are most suitable for specific bandit
 scenarios and helps guide the development of more sophisticated approaches.
 
-#### 3. Incremental Implementation
+#### Incremental Implementation
 
 ##### Incremental Update Rules
 
@@ -333,7 +333,7 @@ The incremental implementation offers significant computational advantages:
 
 A practical implementation of an ε-greedy bandit algorithm using incremental updates would look like:
 
-```
+```bash
 Initialize:
     Q(a) = 0, for all a ∈ {1, 2, ..., k}
     N(a) = 0, for all a ∈ {1, 2, ..., k}
@@ -407,7 +407,6 @@ graph LR
     style B fill:#BCFB89
     style C fill:#0096D9
 
-    classDef weight stroke-width:4px
     class A weight
     class B weight
     class C weight
@@ -454,7 +453,7 @@ More sophisticated approaches to non-stationary problems include:
 These methods enable reinforcement learning systems to operate effectively in dynamic, changing environments where the
 relationships between actions and rewards evolve over time.
 
-#### 5. Optimistic Initial Values
+#### Optimistic Initial Values
 
 ##### Encouraging Exploration
 
@@ -632,7 +631,7 @@ However, UCB also has limitations:
 Despite these limitations, UCB represents one of the most theoretically well-founded and practically effective
 approaches to the exploration-exploitation dilemma in multi-armed bandit problems.
 
-#### 7. Gradient Bandit Algorithms
+#### Gradient Bandit Algorithms
 
 ##### Preference-Based Action Selection
 
