@@ -41,8 +41,7 @@ The AI (like our dog) learns by trying things out and getting rewards for good a
 
 ### Value Functions
 
-1. State-Value Function (how good is a state):
-   $V_\pi(s) = E_\pi[\sum_{k=0}^{\infty} \gamma^k r_{t+k+1}|s_t=s]$
+1. State-Value Function (how good is a state): $V_\pi(s) = E_\pi[\sum_{k=0}^{\infty} \gamma^k r_{t+k+1}|s_t=s]$
 
 2. Action-Value Function (how good is an action in a state):
    $Q_\pi(s,a) = E_\pi[\sum_{k=0}^{\infty} \gamma^k r_{t+k+1}|s_t=s,a_t=a]$
@@ -61,20 +60,17 @@ The AI (like our dog) learns by trying things out and getting rewards for good a
 
 ### Bellman Equation
 
-The fundamental equation:
-$V_\pi(s) = \sum_a \pi(a|s)\sum_{s',r} p(s',r|s,a)[r + \gamma V_\pi(s')]$
+The fundamental equation: $V_\pi(s) = \sum_a \pi(a|s)\sum_{s',r} p(s',r|s,a)[r + \gamma V_\pi(s')]$
 
 ## Part 4: Learning Algorithms
 
 ### 1. Q-Learning
 
-Basic update rule:
-$Q(s_t,a_t) \leftarrow Q(s_t,a_t) + \alpha[r_t + \gamma \max_a Q(s_{t+1},a) - Q(s_t,a_t)]$
+Basic update rule: $Q(s_t,a_t) \leftarrow Q(s_t,a_t) + \alpha[r_t + \gamma \max_a Q(s_{t+1},a) - Q(s_t,a_t)]$
 
 ### 2. SARSA
 
-Update rule:
-$Q(s_t,a_t) \leftarrow Q(s_t,a_t) + \alpha[r_t + \gamma Q(s_{t+1},a_{t+1}) - Q(s_t,a_t)]$
+Update rule: $Q(s_t,a_t) \leftarrow Q(s_t,a_t) + \alpha[r_t + \gamma Q(s_{t+1},a_{t+1}) - Q(s_t,a_t)]$
 
 ## Part 5: Advanced Topics
 
@@ -83,8 +79,7 @@ $Q(s_t,a_t) \leftarrow Q(s_t,a_t) + \alpha[r_t + \gamma Q(s_{t+1},a_{t+1}) - Q(s
 Combining neural networks with RL:
 
 1. DQN (Deep Q-Network)
-2. Policy Gradients:
-   $\nabla J(\theta) = E_{\pi_\theta}[\nabla_\theta \log \pi_\theta(a|s)Q^{\pi_\theta}(s,a)]$
+2. Policy Gradients: $\nabla J(\theta) = E_{\pi_\theta}[\nabla_\theta \log \pi_\theta(a|s)Q^{\pi_\theta}(s,a)]$
 
 ### Actor-Critic Methods
 
@@ -96,6 +91,7 @@ Combines:
 ### Practical Applications:
 
 1. **Game Playing**
+
     - State: Game position
     - Actions: Possible moves
     - Reward: Win/Lose/Points
@@ -127,12 +123,9 @@ Combines:
 
 <br>
 
+A reward function for training a robot to walk using Reinforcement Learning. Let me break down each component:
 
-A reward function for training a robot to walk using Reinforcement Learning. Let me break down each
-component:
-
-The overall reward function is:
-$r = min(v_x, v_{max}) - 0.005(v_y^2 + v_z^2) - 0.05y^2 - 0.02||u||^2 + 0.02$
+The overall reward function is: $r = min(v_x, v_{max}) - 0.005(v_y^2 + v_z^2) - 0.05y^2 - 0.02||u||^2 + 0.02$
 
 There are 4 main desired behaviors being encouraged:
 
@@ -197,9 +190,7 @@ Where:
 - $R_t$ is the reward at time t
 - T is the final time step
 
-**Example:**
-If rewards are [1, 2, 3, 4]:
-$G_1 = 1 + 2 + 3 + 4 = 10$
+**Example:** If rewards are [1, 2, 3, 4]: $G_1 = 1 + 2 + 3 + 4 = 10$
 
 ### 2.2 Discounted Return
 
@@ -212,9 +203,7 @@ Where:
 - $\gamma$ is the discount factor (0 ≤ γ ≤ 1)
 - $\gamma^k$ reduces future rewards
 
-**Example:**
-With γ = 0.9 and rewards [1, 2, 3, 4]:
-$G_1 = 1 + (0.9 × 2) + (0.9^2 × 3) + (0.9^3 × 4)$
+**Example:** With γ = 0.9 and rewards [1, 2, 3, 4]: $G_1 = 1 + (0.9 × 2) + (0.9^2 × 3) + (0.9^3 × 4)$
 $G_1 = 1 + 1.8 + 2.43 + 2.916 = 8.146$
 
 ## 3. Why Use Discounted Returns?
@@ -253,18 +242,15 @@ With discount (γ = 0.9):
 
 ### 5.1 Finite Horizon
 
-When there's a clear end time T:
-$G_t = \sum_{k=0}^{T-t} \gamma^k R_{t+k+1}$
+When there's a clear end time T: $G_t = \sum_{k=0}^{T-t} \gamma^k R_{t+k+1}$
 
 ### 5.2 Infinite Horizon
 
-When there's no clear end:
-$G_t = \sum_{k=0}^{\infty} \gamma^k R_{t+k+1}$
+When there's no clear end: $G_t = \sum_{k=0}^{\infty} \gamma^k R_{t+k+1}$
 
 ### 5.3 Recursive Relationship
 
-Important property:
-$G_t = R_{t+1} + \gamma G_{t+1}$
+Important property: $G_t = R_{t+1} + \gamma G_{t+1}$
 
 ## 6. Implementation Considerations
 
@@ -288,8 +274,7 @@ partly under the control of a decision-maker. It's named after Andrey Markov.
 
 "The future depends only on the present, not on the past"
 
-Mathematically:
-$P(s_{t+1}|s_t, a_t) = P(s_{t+1}|s_t, a_t, s_{t-1}, a_{t-1},...,s_0, a_0)$
+Mathematically: $P(s_{t+1}|s_t, a_t) = P(s_{t+1}|s_t, a_t, s_{t-1}, a_{t-1},...,s_0, a_0)$
 
 ## 2. Components of MDP
 
@@ -298,18 +283,22 @@ $P(s_{t+1}|s_t, a_t) = P(s_{t+1}|s_t, a_t, s_{t-1}, a_{t-1},...,s_0, a_0)$
 An MDP is defined by a tuple $(S, A, P, R, \gamma)$ where:
 
 1. **States (S)**:
+
     - Set of all possible states
     - Example: Positions in a game, robot configurations
 
 2. **Actions (A)**:
+
     - Set of all possible actions
     - Example: Move left/right, apply force
 
 3. **Transition Probability (P)**:
+
     - $P(s'|s,a)$ = probability of reaching state s' from state s with action a
     - Mathematically: $P: S × A × S → [0,1]$
 
 4. **Reward Function (R)**:
+
     - $R(s,a,s')$ = immediate reward for transition from s to s' with action a
     - Mathematically: $R: S × A × S → \mathbb{R}$
 
@@ -328,25 +317,22 @@ An MDP is defined by a tuple $(S, A, P, R, \gamma)$ where:
 
 ### 3.2 Value Functions
 
-**State-Value Function:**
-$V_\pi(s) = E_\pi[\sum_{k=0}^{\infty} \gamma^k R_{t+k+1}|S_t=s]$
+**State-Value Function:** $V_\pi(s) = E_\pi[\sum_{k=0}^{\infty} \gamma^k R_{t+k+1}|S_t=s]$
 
-**Action-Value Function:**
-$Q_\pi(s,a) = E_\pi[\sum_{k=0}^{\infty} \gamma^k R_{t+k+1}|S_t=s,A_t=a]$
+**Action-Value Function:** $Q_\pi(s,a) = E_\pi[\sum_{k=0}^{\infty} \gamma^k R_{t+k+1}|S_t=s,A_t=a]$
 
 ## 4. Solving MDPs
 
 ### 4.1 Bellman Equations
 
-**Bellman Expectation Equation:**
-$V_\pi(s) = \sum_a \pi(a|s)\sum_{s'} P(s'|s,a)[R(s,a,s') + \gamma V_\pi(s')]$
+**Bellman Expectation Equation:** $V_\pi(s) = \sum_a \pi(a|s)\sum_{s'} P(s'|s,a)[R(s,a,s') + \gamma V_\pi(s')]$
 
-**Bellman Optimality Equation:**
-$V_*(s) = \max_a\sum_{s'} P(s'|s,a)[R(s,a,s') + \gamma V_*(s')]$
+**Bellman Optimality Equation:** $V_*(s) = \max_a\sum_{s'} P(s'|s,a)[R(s,a,s') + \gamma V_*(s')]$
 
 ### 4.2 Solution Methods
 
 1. **Dynamic Programming**
+
     - Value Iteration
     - Policy Iteration
 
@@ -415,7 +401,6 @@ Rewards: -1 per step, +10 goal, -10 trap
 
 <br>
 
-
 At an arbitrary time step t, the agent-environment interaction has evolved as a sequence of states, actions, and rewards
 
 $(S_0, A_0, R_1, S_1, A_1, ..., R_{t-1}, S_{t-1}, A_{t-1}, R_t, S_t, A_t)$.
@@ -439,7 +424,6 @@ $p(s',r|s,a) \doteq \mathbb{P}(S_{t+1} = s', R_{t+1} = r|S_t = s, A_t = a)$
 for each possible s', r, s, and a. These conditional probabilities are said to specify the one-step dynamics of the
 environment.
 
-
 <br>
 
 ![localImage](images/summary.png)
@@ -448,21 +432,19 @@ environment.
 
 # The Setting, Revisited
 
-The reinforcement learning (RL) framework is characterized by an agent learning to interact with its environment.
-At each time step, the agent receives the environment's state (the environment presents a situation to the agent), and
-the agent must choose an appropriate action in response. One time step later, the agent receives a reward (the
-environment indicates whether the agent has responded appropriately to the state) and a new state.
-All agents have the goal to maximize expected cumulative reward, or the expected sum of rewards attained over all time
-steps.
+The reinforcement learning (RL) framework is characterized by an agent learning to interact with its environment. At
+each time step, the agent receives the environment's state (the environment presents a situation to the agent), and the
+agent must choose an appropriate action in response. One time step later, the agent receives a reward (the environment
+indicates whether the agent has responded appropriately to the state) and a new state. All agents have the goal to
+maximize expected cumulative reward, or the expected sum of rewards attained over all time steps.
 
 # Episodic vs. Continuing Tasks
 
-A task is an instance of the reinforcement learning (RL) problem.
-Continuing tasks are tasks that continue forever, without end.
-Episodic tasks are tasks with a well-defined starting and ending point.
+A task is an instance of the reinforcement learning (RL) problem. Continuing tasks are tasks that continue forever,
+without end. Episodic tasks are tasks with a well-defined starting and ending point.
 
-- In this case, we refer to a complete sequence of interaction, from start to finish, as an episode.
-  Episodic tasks come to an end whenever the agent reaches a terminal state.
+- In this case, we refer to a complete sequence of interaction, from start to finish, as an episode. Episodic tasks come
+  to an end whenever the agent reaches a terminal state.
 
 # The Reward Hypothesis
 
@@ -474,31 +456,25 @@ Reward Hypothesis: all goals can be framed as the maximization of (expected) cum
 
 # Cumulative Reward
 
-The return at time step t is $G_t = R_{t+1} + R_{t+2} + R_{t+3} + ...$
-The agent selects actions with the goal of maximizing expected (discounted) return.
-(Note: discounting is covered in the next concept.)
+The return at time step t is $G_t = R_{t+1} + R_{t+2} + R_{t+3} + ...$ The agent selects actions with the goal of
+maximizing expected (discounted) return. (Note: discounting is covered in the next concept.)
 
 # Discounted Return
 
-The discounted return at time step t is $G_t = R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + ...$
-The discount rate γ is something that you set to refine the goal that you have for the agent.
-It must satisfy 0 ≤ γ ≤ 1.
-If γ = 0, the agent only cares about the most immediate reward.
-If γ = 1, the return is not discounted.
-For larger values of γ, the agent cares more about the distant future. Smaller values of γ result in more extreme
-discounting, where - in the most extreme case - agent only cares about the most immediate reward.
+The discounted return at time step t is $G_t = R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + ...$ The discount rate γ is
+something that you set to refine the goal that you have for the agent. It must satisfy 0 ≤ γ ≤ 1. If γ = 0, the agent
+only cares about the most immediate reward. If γ = 1, the return is not discounted. For larger values of γ, the agent
+cares more about the distant future. Smaller values of γ result in more extreme discounting, where - in the most extreme
+case - agent only cares about the most immediate reward.
 
 # MDPs and One-Step Dynamics
 
-The state space 𝒮 is the set of all (nonterminal) states.
-In episodic tasks, we use 𝒮⁺ to refer to the set of all states, including terminal states.
-The action space 𝒜 is the set of possible actions. (Alternatively, 𝒜(s) refers to the set of possible actions
-available in state s ∈ 𝒮)
-(Please see Part 2 to review how to specify the reward signal in the recycling robot example.)
-The one-step dynamics of the environment determine how the environment decides the state and reward at every time
-step. The dynamics can be defined by specifying p(s', r|s, a) = ℙ(St+1 = s', Rt+1 = r|St = s, At = a) for each possible
-s', r, s, and a.
-A (finite) Markov Decision Process (MDP) is defined by:
+The state space 𝒮 is the set of all (nonterminal) states. In episodic tasks, we use 𝒮⁺ to refer to the set of all
+states, including terminal states. The action space 𝒜 is the set of possible actions. (Alternatively, 𝒜(s) refers to the
+set of possible actions available in state s ∈ 𝒮) (Please see Part 2 to review how to specify the reward signal in the
+recycling robot example.) The one-step dynamics of the environment determine how the environment decides the state and
+reward at every time step. The dynamics can be defined by specifying p(s', r|s, a) = ℙ(St+1 = s', Rt+1 = r|St = s, At =
+a) for each possible s', r, s, and a. A (finite) Markov Decision Process (MDP) is defined by:
 
 - a (finite) set of states 𝒮 or 𝒮⁺ (in the case of an episodic task)
 - a (finite) set of actions 𝒜
@@ -517,8 +493,7 @@ A (finite) Markov Decision Process (MDP) is defined by:
 The state-value function $v_π(s)$ for a policy π is the expected return when starting in state s and following policy π
 thereafter:
 
-$v_π(s) \doteq E_π[G_t|S_t=s]$
-$= E_π[\sum_{k=0}^{\infty} \gamma^k R_{t+k+1}|S_t=s]$
+$v_π(s) \doteq E_π[G_t|S_t=s]$ $= E_π[\sum_{k=0}^{\infty} \gamma^k R_{t+k+1}|S_t=s]$
 
 Where:
 
@@ -559,16 +534,14 @@ $q_*(s,a) = \sum_{s',r} p(s',r|s,a)[r + \gamma \max_{a'} q_*(s',a')]$
 
 ### Policy Improvement
 
-Better policy π' can be found by:
-$π'(s) = \arg\max_a \sum_{s',r} p(s',r|s,a)[r + \gamma v_π(s')]$
+Better policy π' can be found by: $π'(s) = \arg\max_a \sum_{s',r} p(s',r|s,a)[r + \gamma v_π(s')]$
 
 ## 5. Practical Applications
 
 ### Value Iteration
 
 1. Initialize $v(s)$ arbitrarily
-2. Update:
-   $v(s) \leftarrow \max_a \sum_{s',r} p(s',r|s,a)[r + \gamma v(s')]$
+2. Update: $v(s) \leftarrow \max_a \sum_{s',r} p(s',r|s,a)[r + \gamma v(s')]$
 
 ### Policy Iteration
 
@@ -624,14 +597,13 @@ Value function might look like:
 
 # Bellman Equations in Grid World and MDPs
 
-In this gridworld example, once the agent selects an action,
-it always moves in the chosen direction (contrasting general MDPs where the agent doesn't always have complete control
-over what the next state will be), and
-the reward can be predicted with complete certainty (contrasting general MDPs where the reward is a random draw from a
-probability distribution).
+In this gridworld example, once the agent selects an action, it always moves in the chosen direction (contrasting
+general MDPs where the agent doesn't always have complete control over what the next state will be), and the reward can
+be predicted with complete certainty (contrasting general MDPs where the reward is a random draw from a probability
+distribution).
 
-In this simple example, we saw that the value of any state can be calculated as the sum of the immediate reward and
-the (discounted) value of the next state.
+In this simple example, we saw that the value of any state can be calculated as the sum of the immediate reward and the
+(discounted) value of the next state.
 
 Alexis mentioned that for a general MDP, we have to instead work in terms of an expectation, since it's not often the
 case that the immediate reward and next state can be predicted with certainty. Indeed, we saw in an earlier lesson that
@@ -681,6 +653,7 @@ features:
 
 1. **State Space**: S⁺ = {s₁, s₂, ..., s₉}
 2. **Deterministic Policy (π)** given as:
+
     - π(s₁) = right
     - π(s₂) = right
     - π(s₃) = down
@@ -691,6 +664,7 @@ features:
     - π(s₈) = right
 
 3. **Rewards**: Shown on transitions in the diagram
+
     - Most transitions have R = -1 or R = -3
     - Transitions to S₉ have R = 5
     - v_π(s₉) = 0 (terminal state)
@@ -735,33 +709,35 @@ Ah, let me help solve Question 3 more systematically using the Bellman Equation.
 
 Let's check each statement using the Bellman Equation:
 
-1. v_π(s₆) = -1 + v_π(s₅)
+1. v*π(s₆) = -1 + v*π(s₅)
+
     - Following policy: s₆ → s₉ with R = 5
-    - v_π(s₆) = 5 + v_π(s₉) = 5 + 0 = 5
+    - v*π(s₆) = 5 + v*π(s₉) = 5 + 0 = 5
     - This equation is false
 
-2. v_π(s₇) = -3 + v_π(s₈)
+2. v*π(s₇) = -3 + v*π(s₈)
+
     - Following policy: s₇ → s₈ with R = -3
-    - v_π(s₇) = -3 + v_π(s₈)
-    - v_π(s₈) = -3 + v_π(s₉) = -3
+    - v*π(s₇) = -3 + v*π(s₈)
+    - v*π(s₈) = -3 + v*π(s₉) = -3
     - Therefore v_π(s₇) = -3 + (-3) = -6
     - This equation is TRUE!
 
-3. v_π(s₁) = -1 + v_π(s₂)
+3. v*π(s₁) = -1 + v*π(s₂)
+
     - Following policy: s₁ → s₂ with R = -1
     - From earlier calculation, v_π(s₁) = 2
     - This equation is TRUE!
     - Because v_π(s₂) = 3 (you get -1, -1, 5 from s₂ → s₃ → s₆ → s₉)
-    - So -1 + v_π(s₂) = -1 + 3 = 2 = v_π(s₁)
+    - So -1 + v*π(s₂) = -1 + 3 = 2 = v*π(s₁)
 
-4. v_π(s₄) = -3 + v_π(s₇)
+4. v*π(s₄) = -3 + v*π(s₇)
+
     - This is not true because policy from s₄ is "up" not down
 
-5. v_π(s₈) = -3 + v_π(s₉)
-   ❌ FALSE because:
+5. v*π(s₈) = -3 + v*π(s₉) ❌ FALSE because:
 
-While s₈ does transition to s₉, the reward is 5, not -3
-The equation doesn't match the actual transition dynamics
+While s₈ does transition to s₉, the reward is 5, not -3 The equation doesn't match the actual transition dynamics
 
 **Correct Answer**: Statements (2), (3), and (5) are true.
 
@@ -769,7 +745,7 @@ The key is to verify each equation using:
 
 1. The policy-dictated transitions
 2. The rewards shown in the diagram
-3. The Bellman equation: v_π(s) = R + v_π(s') where s' is the next state following the policy
+3. The Bellman equation: v*π(s) = R + v*π(s') where s' is the next state following the policy
 4. The known values we calculated earlier
 
 Checking with the Bellman equation shows that statements 2, 3, and 5 are consistent with the state-value function and
@@ -784,10 +760,12 @@ Optimality in RL refers to achieving the best possible behavior (policy) that ma
 ### Key Components:
 
 1. **Optimal Value Function (V\*)**
+
     - Maximum value achievable for each state
     - $V*(s) = \max_\pi V^\pi(s)$ for all s ∈ S
 
 2. **Optimal Action-Value Function (Q\*)**
+
     - Maximum value achievable for each state-action pair
     - $Q*(s,a) = \max_\pi Q^\pi(s,a)$ for all s ∈ S, a ∈ A
 
@@ -844,7 +822,7 @@ current position?"
 Think of a GPS Navigation System:
 
 | State-Value (Where you are)                | Action-Value (What move to make)                     |
-|--------------------------------------------|------------------------------------------------------|
+| ------------------------------------------ | ---------------------------------------------------- |
 | "You're in downtown"                       | "Turn left at the next intersection"                 |
 | "You're on the highway"                    | "Take exit 34 in 2 miles"                            |
 | Tells you how good your location is        | Tells you what specific action to take               |
@@ -883,7 +861,8 @@ $Q*(s,a) = \sum_{s',r} p(s',r|s,a)[r + \gamma \max_{a'} Q*(s',a')]$
 ## 3. Properties of Optimal Policies
 
 1. **Multiple Optimal Policies**
-    - Can have multiple policies achieving V*
+
+    - Can have multiple policies achieving V\*
     - All optimal policies achieve same optimal value
 
 2. **Deterministic Nature**
@@ -895,20 +874,21 @@ $Q*(s,a) = \sum_{s',r} p(s',r|s,a)[r + \gamma \max_{a'} Q*(s',a')]$
 ### Dynamic Programming Methods:
 
 1. **Value Iteration**
-   ```textmate
-   Initialize V(s) arbitrarily
-   Repeat:
-       For each s:
-           V(s) ← max_a Σ p(s'|s,a)[r + γV(s')]
-   ```
+
+    ```textmate
+    Initialize V(s) arbitrarily
+    Repeat:
+        For each s:
+            V(s) ← max_a Σ p(s'|s,a)[r + γV(s')]
+    ```
 
 2. **Policy Iteration**
-   ```textmate
-   Initialize π arbitrarily
-   Repeat:
-       Policy Evaluation: compute V_π
-       Policy Improvement: π'(s) ← arg max_a Q(s,a)
-   ```
+    ```textmate
+    Initialize π arbitrarily
+    Repeat:
+        Policy Evaluation: compute V_π
+        Policy Improvement: π'(s) ← arg max_a Q(s,a)
+    ```
 
 ### Model-Free Methods:
 
@@ -919,10 +899,12 @@ $Q*(s,a) = \sum_{s',r} p(s',r|s,a)[r + \gamma \max_{a'} Q*(s',a')]$
 ## 5. Challenges in Finding Optimality
 
 1. **Curse of Dimensionality**
+
     - State space too large
     - Action space too large
 
 2. **Exploration vs Exploitation**
+
     - Need to explore to find optimal policy
     - Need to exploit known good actions
 
@@ -969,8 +951,7 @@ Optimal policy might look like:
 The action-value function (Q-function) measures the expected return starting from state s, taking action a, and then
 following policy π:
 
-$Q_π(s,a) = E_π[G_t|S_t=s, A_t=a]$
-$= E_π[\sum_{k=0}^{\infty} \gamma^k R_{t+k+1}|S_t=s, A_t=a]$
+$Q_π(s,a) = E_π[G_t|S_t=s, A_t=a]$ $= E_π[\sum_{k=0}^{\infty} \gamma^k R_{t+k+1}|S_t=s, A_t=a]$
 
 ## 2. Key Properties
 
@@ -995,10 +976,12 @@ $Q*(s,a) = \sum_{s',r} p(s',r|s,a)[r + \gamma \max_{a'} Q*(s',a')]$
 ## 4. Advantages of Q-Functions
 
 1. **Direct Action Selection**
+
     - Can choose actions without knowing model
     - $a* = \arg\max_a Q*(s,a)$
 
 2. **Model-Free Learning**
+
     - Don't need transition probabilities
     - Learn directly from experience
 
@@ -1056,8 +1039,7 @@ Q(s,a) = NeuralNetwork(state, action)
 
 ### 2. Updates
 
-Basic Q-learning update:
-$Q(s,a) ← Q(s,a) + α[r + \gamma \max_{a'} Q(s',a') - Q(s,a)]$
+Basic Q-learning update: $Q(s,a) ← Q(s,a) + α[r + \gamma \max_{a'} Q(s',a') - Q(s,a)]$
 
 ### 3. Exploration Strategies
 
@@ -1100,14 +1082,14 @@ $A_π(s,a) = Q_π(s,a) - V_π(s)$
 ## Comparison Table
 
 | Aspect                    | State-Value Function (vπ)                         | Action-Value Function (qπ)                                |
-|---------------------------|---------------------------------------------------|-----------------------------------------------------------|
+| ------------------------- | ------------------------------------------------- | --------------------------------------------------------- | ------ | ------ | --- | --- | --- | ------ |
 | **Input**                 | State only (s)                                    | State and action pair (s,a)                               |
 | **Output**                | Value of being in state s                         | Value of taking action a in state s                       |
 | **Policy Dependence**     | Values based on following policy π                | Values based on taking action a then following policy π   |
 | **Usage**                 | Better for policy evaluation                      | Better for action selection                               |
 | **Information Required**  | Needs model or policy for action selection        | Can select actions directly                               |
 | **Main Application**      | Model-based methods                               | Model-free methods                                        |
-| **Memory Requirements**   | Stores                                            | S                                                         | values | Stores |S|×|A| values |
+| **Memory Requirements**   | Stores                                            | S                                                         | values | Stores | S   | ×   | A   | values |
 | **Decision Making**       | Needs additional computation for action selection | Direct action selection possible                          |
 | **Bellman Equation Form** | vπ(s) = Σa π(a\|s) qπ(s,a)                        | qπ(s,a) = Σs',r p(s',r\|s,a)[r + γΣa' π(a'\|s')qπ(s',a')] |
 | **Optimal Form**          | v*(s) = maxa q*(s,a)                              | q*(s,a) = Σs',r p(s',r\|s,a)[r + γ maxa' q*(s',a')]       |
@@ -1115,14 +1097,16 @@ $A_π(s,a) = Q_π(s,a) - V_π(s)$
 ## Key Relationships
 
 1. State-value can be derived from action-values:
+
     - vπ(s) = Σa π(a|s)qπ(s,a)
 
 2. Action-value can often lead directly to action selection:
-    - a* = argmaxa qπ(s,a)
+    - a\* = argmaxa qπ(s,a)
 
 ## Common Use Cases
 
 - **State-Value Function**:
+
     - Policy evaluation
     - Value iteration
     - Model-based planning
@@ -1142,49 +1126,49 @@ $A_π(s,a) = Q_π(s,a) - V_π(s)$
 
 # Optimal Action-Value Function and Policy in MDPs
 
-If the state space 𝒮 and action space 𝒜 are finite, we can represent the optimal action-value function q* in a table,
+If the state space 𝒮 and action space 𝒜 are finite, we can represent the optimal action-value function q\* in a table,
 where we have one entry for each possible environment state s ∈ 𝒮 and action a ∈ 𝒜.
 
 The value for a particular state-action pair s, a is the expected return if the agent starts in state s, takes action a,
-and then henceforth follows the optimal policy π*.
+and then henceforth follows the optimal policy π\*.
 
 We have populated some values for a hypothetical Markov decision process (MDP) (where 𝒮 = {s₁, s₂, s₃} and 𝒜 = {a₁, a₂,
 a₃}) below.
 
-## First Optimal Action-Value Table (q*):
+## First Optimal Action-Value Table (q\*):
 
-|    | a₁ | a₂ | a₃ |
-|----|----|----|----|
-| s₁ | 1  | 2  | -3 |
-| s₂ | -2 | 1  | 3  |
-| s₃ | 4  | 4  | -5 |
+|     | a₁  | a₂  | a₃  |
+| --- | --- | --- | --- |
+| s₁  | 1   | 2   | -3  |
+| s₂  | -2  | 1   | 3   |
+| s₃  | 4   | 4   | -5  |
 
 ## Same Table with Best Actions Highlighted:
 
-|    | a₁  | a₂  | a₃  |
-|----|-----|-----|-----|
-| s₁ | 1   | (2) | -3  |
-| s₂ | -2  | 1   | (3) |
-| s₃ | (4) | (4) | -5  |
+|     | a₁  | a₂  | a₃  |
+| --- | --- | --- | --- |
+| s₁  | 1   | (2) | -3  |
+| s₂  | -2  | 1   | (3) |
+| s₃  | (4) | (4) | -5  |
 
 ## New MDP Question Table:
 
-|    | a₁ | a₂ | a₃ |
-|----|----|----|----|
-| s₁ | 1  | 3  | 4  |
-| s₂ | 2  | 2  | 1  |
-| s₃ | 3  | 1  | 1  |
+|     | a₁  | a₂  | a₃  |
+| --- | --- | --- | --- |
+| s₁  | 1   | 3   | 4   |
+| s₂  | 2   | 2   | 1   |
+| s₃  | 3   | 1   | 1   |
 
-The optimal policy π* must satisfy:
+The optimal policy π\* must satisfy:
 
 - π*(s₁) = a₂ (or, equivalently, π*(a₂|s₁) = 1)
 - π*(s₂) = a₃ (or, equivalently, π*(a₃|s₂) = 1)
 
-For state s₃, with a₁, a₂ ∈ arg max_a∈A(s₃) q*(s₃, a):
+For state s₃, with a₁, a₂ ∈ arg max_a∈A(s₃) q\*(s₃, a):
 
-- π*(a₁|s₃) = p
-- π*(a₂|s₃) = q
-- π*(a₃|s₃) = 0
+- π\*(a₁|s₃) = p
+- π\*(a₂|s₃) = q
+- π\*(a₃|s₃) = 0
 
 where p, q ≥ 0, and p + q = 1
 
@@ -1193,11 +1177,11 @@ policy π* by setting π*(s) = arg max_a∈A(s) q*(s,a) for all s ∈ 𝒮.
 
 ### Quiz
 
-|    | a₁ | a₂ | a₃ |
-|----|----|----|----|
-| s₁ | 1  | 3  | 4  |
-| s₂ | 2  | 2  | 1  |
-| s₃ | 3  | 1  | 1  |
+|     | a₁  | a₂  | a₃  |
+| --- | --- | --- | --- |
+| s₁  | 1   | 3   | 4   |
+| s₂  | 2   | 2   | 1   |
+| s₃  | 3   | 1   | 1   |
 
 Let's analyze each option:
 
@@ -1211,10 +1195,8 @@ Let's analyze each option:
 
 3. "The agent is free to select either action a₁ or action a₂ in state s₂"
 
-CORRECT because:
-In s₂: both a₁ and a₂ have value 2 (highest)
-When multiple actions have equal highest values, the agent can choose either
-This is an example of a case where multiple optimal actions exist
+CORRECT because: In s₂: both a₁ and a₂ have value 2 (highest) When multiple actions have equal highest values, the agent
+can choose either This is an example of a case where multiple optimal actions exist
 
 4. "The agent must select action a₃ in state s₂"
 
@@ -1250,16 +1232,15 @@ derived from the action-value function using π*(s) = arg max_a∈A(s) q*(s,a).
 # State-Value Functions
 
 - The **state-value function** for a policy π is denoted vπ. For each state s ∈ 𝒮, it yields the expected return if the
-  agent starts in state s and then uses the policy to choose its actions for all time steps. That is, vπ(s) =
-  𝔼π[Gt|St = s]. We refer to vπ(s) as the value of state s under policy π.
+  agent starts in state s and then uses the policy to choose its actions for all time steps. That is, vπ(s) = 𝔼π[Gt|St =
+  s]. We refer to vπ(s) as the value of state s under policy π.
 
 - The notation 𝔼π[·] is borrowed from the suggested textbook, where 𝔼π[·] is defined as the expected value of a random
   variable, given that the agent follows policy π.
 
 # Bellman Equations
 
-- The **Bellman expectation equation** for vπ is:
-  vπ(s) = 𝔼π[Rt+1 + γvπ(St+1)|St = s].
+- The **Bellman expectation equation** for vπ is: vπ(s) = 𝔼π[Rt+1 + γvπ(St+1)|St = s].
 
 # Optimality
 
@@ -1268,7 +1249,7 @@ derived from the action-value function using π*(s) = arg max_a∈A(s) q*(s,a).
 - An **optimal policy** π* satisfies π* ≥ π for all policies π. An optimal policy is guaranteed to exist but may not be
   unique.
 
-- All optimal policies have the same state-value function v*, called the **optimal state-value function**.
+- All optimal policies have the same state-value function v\*, called the **optimal state-value function**.
 
 # Action-Value Functions
 
@@ -1277,7 +1258,7 @@ derived from the action-value function using π*(s) = arg max_a∈A(s) q*(s,a).
   That is, qπ(s,a) = 𝔼π[Gt|St = s, At = a]. We refer to qπ(s,a) as the value of taking action a in state s under a
   policy π (or alternatively as the value of the state-action pair s,a).
 
-- All optimal policies have the same action-value function q*, called the **optimal action-value function**.
+- All optimal policies have the same action-value function q\*, called the **optimal action-value function**.
 
 # Optimal Policies
 
@@ -1292,7 +1273,6 @@ Decision Process (MDP) to model the environment. The MDP specifies the rules tha
 agent's actions, including how much reward to give to the agent in response to its behavior. The agent's goal is to
 learn how to play by the rules of the environment, in order to maximize reward.
 
-
 <br>
 
 ![localImage](images/agent.png)
@@ -1302,7 +1282,7 @@ learn how to play by the rules of the environment, in order to maximize reward.
 Next, in the lesson "The RL Framework: The Solution", you learned how to specify a solution to the reinforcement
 learning problem. In particular, the optimal policy π* specifies - for each environment state - how the agent should
 select an action towards its goal of maximizing reward. You learned that the agent could structure its search for an
-optimal policy by first estimating the* optimal action-value function *q*; then, once q* is known, π* is quickly
+optimal policy by first estimating the* optimal action-value function _q_; then, once q* is known, π* is quickly
 obtained.
 
 Before continuing with this lesson, please take the time to review your notes, to ensure that the terminology from the
@@ -1440,6 +1420,7 @@ def mc_control(num_episodes):
 ## 8. Common Applications
 
 1. **Game Playing**
+
     - Backgammon
     - Go
     - Poker
@@ -1465,6 +1446,7 @@ def mc_control(num_episodes):
 ## 10. Best Practices
 
 1. **Episode Generation**
+
     - Ensure sufficient exploration
     - Maintain episode diversity
     - Consider episode length
@@ -1486,8 +1468,8 @@ Which of the following describes the Monte Carlo approach discussed in the video
 - They work with complete episodes, not individual steps
 - This sounds more like a random exploration strategy
 
-2. ❌ "For the first episode, the agent selects the first action at every time step. For the second episode, it selects a
-   different action, and so on."
+2. ❌ "For the first episode, the agent selects the first action at every time step. For the second episode, it selects
+   a different action, and so on."
 
 - Incorrect because it suggests a systematic, sequential exploration
 - Monte Carlo doesn't require such rigid action selection
@@ -1503,8 +1485,8 @@ Which of the following describes the Monte Carlo approach discussed in the video
     - Uses averaging over many experiences
     - Matches Monte Carlo's key principle of learning from complete experiences
 
-4. ❌ "When the agent has a policy in mind, it follows the policy to collect a single episode. The agent uses the episode
-   to tell if the policy is good or bad by looking at the cumulative reward received by the agent."
+4. ❌ "When the agent has a policy in mind, it follows the policy to collect a single episode. The agent uses the
+   episode to tell if the policy is good or bad by looking at the cumulative reward received by the agent."
 
 - Incorrect because:
     - Single episode isn't enough for Monte Carlo
@@ -1599,6 +1581,7 @@ def update_q_table(state, action, reward, next_state):
 ### 6. Common Applications
 
 1. **Grid World Navigation**
+
     - States: Grid positions
     - Actions: Up, Down, Left, Right
 
@@ -1609,10 +1592,12 @@ def update_q_table(state, action, reward, next_state):
 ### 7. Best Practices
 
 1. **Initialization**
+
     - Consider optimistic initialization
     - Use small random values
 
 2. **Memory Management**
+
     - Use sparse matrices for large spaces
     - Consider state aggregation
 
@@ -1623,6 +1608,7 @@ def update_q_table(state, action, reward, next_state):
 ### 8. Extensions and Improvements
 
 1. **Double Q-Learning**
+
     - Reduces overestimation
     - Uses two Q-tables
 
@@ -1714,12 +1700,11 @@ times.
 As discussed in the video, we define every occurrence of a state in an episode as a visit to that state-action pair.
 And, in the event that a state-action pair is visited more than once in an episode, we have two options.
 
-**Option 1: Every-visit MC Prediction**
-Average the returns following all visits to each state-action pair, in all episodes.
+**Option 1: Every-visit MC Prediction** Average the returns following all visits to each state-action pair, in all
+episodes.
 
-**Option 2: First-visit MC Prediction**
-For each episode, we only consider the first visit to the state-action pair. The pseudocode for this option can be found
-below.
+**Option 2: First-visit MC Prediction** For each episode, we only consider the first visit to the state-action pair. The
+pseudocode for this option can be found below.
 
 [Algorithm 9: First-Visit MC Prediction reference]
 
@@ -1804,10 +1789,7 @@ available (non-greedy AND greedy) actions.
 In order to construct a policy π that is ε-greedy with respect to the current action-value function estimate Q, we will
 set
 
-π(a|s) ← {
-1 - ε + ε/|𝒜(s)| if a maximizes Q(s,a)
-ε/|𝒜(s)| else
-}
+π(a|s) ← { 1 - ε + ε/|𝒜(s)| if a maximizes Q(s,a) ε/|𝒜(s)| else }
 
 for each s ∈ 𝒮 and a ∈ 𝒜(s).
 
@@ -1831,6 +1813,7 @@ selection.
 ## How It Works
 
 1. **Coin Flip Analogy**:
+
     - Agent has a coin with probability ε of landing heads
     - Flips coin after observing each state
 
@@ -1855,16 +1838,19 @@ Where:
 ## Key Properties
 
 1. **Exploration Rate**:
+
     - ε = 0: Pure exploitation (greedy)
     - ε = 1: Pure exploration (random)
     - 0 < ε < 1: Balance between both
 
 2. **Probability Sum**:
+
     - Total probability sums to 1
     - Non-optimal actions: (|𝒜(s)| - 1) × ε/|𝒜(s)|
     - Optimal action: 1 - ε + ε/|𝒜(s)|
 
 3. **Advantages**:
+
     - Simple to implement
     - Guarantees exploration
     - Can be adjusted over time
@@ -1946,7 +1932,7 @@ Step 1: using the policy π to construct the Q-table, and
 
 Step 2: improving the policy by changing it to be ε-greedy with respect to the Q-table (π' ← ε-greedy(Q), π ← π'),
 
-we will eventually obtain the optimal policy π*.
+we will eventually obtain the optimal policy π\*.
 
 Since this algorithm is a solution for the control problem (defined below), we call it a Monte Carlo control method.
 
@@ -1962,19 +1948,17 @@ policy. Likewise, since Step 2 is used to improve the policy, we also refer to i
 So, using this new terminology, we can summarize what we've learned to say that our Monte Carlo control method
 alternates between policy evaluation and policy improvement steps to recover the optimal policy π∗
 
-The Road Ahead
-You now have a working algorithm for Monte Carlo control! So, what's to come?
+The Road Ahead You now have a working algorithm for Monte Carlo control! So, what's to come?
 
 In the next concept (Exploration vs. Exploitation), you will learn more about how to set the value of ϵ-greedy policies
 in the policy improvement step. Then, you will learn about two improvements that you can make to the policy evaluation
 step in your control algorithm.
 
 In the Incremental Mean concept, you will learn how to update the policy after every episode (instead of waiting to
-update the policy until after the values of the Q-table have fully converged from many episodes).
-In the Constant-alpha concept, you will learn how to train the agent to leverage its most recent experience more
-effectively.
-Finally, to conclude the lesson, you will write your own algorithm for Monte Carlo control to solve OpenAI Gym's
-Blackjack environment, to put your new knowledge to practice!
+update the policy until after the values of the Q-table have fully converged from many episodes). In the Constant-alpha
+concept, you will learn how to train the agent to leverage its most recent experience more effectively. Finally, to
+conclude the lesson, you will write your own algorithm for Monte Carlo control to solve OpenAI Gym's Blackjack
+environment, to put your new knowledge to practice!
 
 # Exploration-Exploitation Dilemma in Reinforcement Learning
 
@@ -1989,6 +1973,7 @@ stick with actions they know work well, or explore new actions that might be eve
 ### 1. The Dilemma Explained
 
 - **Exploitation**: Using known good actions
+
     - Based on past experience
     - Maximizes immediate rewards
     - Risk: Might miss better options
@@ -2008,6 +1993,7 @@ stick with actions they know work well, or explore new actions that might be eve
 ### 3. Implementation Strategy
 
 1. **Early Stages**:
+
     - High ε value (near 1)
     - Favors exploration
     - Builds knowledge base
@@ -2035,6 +2021,7 @@ Two key conditions:
 ### 2. Setting ε Values
 
 - **Theory**: Gradually decay to zero
+
     - Example: ε = 1/i (where i is time step)
 
 - **Practice**: Often better to:
@@ -2058,8 +2045,8 @@ Two key conditions:
 
 # Greedy in the Limit with Infinite Exploration (GLIE)
 
-In order to guarantee that MC control converges to the optimal policy π*, we need to ensure that two conditions are met.
-We refer to these conditions as Greedy in the Limit with Infinite Exploration (GLIE). In particular, if:
+In order to guarantee that MC control converges to the optimal policy π\*, we need to ensure that two conditions are
+met. We refer to these conditions as Greedy in the Limit with Infinite Exploration (GLIE). In particular, if:
 
 every state-action pair s, a (for all s ∈ 𝒮 and a ∈ 𝒜(s)) is visited infinitely many times, and
 
@@ -2136,25 +2123,23 @@ Q(Sₜ, Aₜ) ← (1 - α)Q(Sₜ, Aₜ) + αGₜ
 
 Here are some guiding principles that will help you to set the value of α when implementing constant-α MC control:
 
-You should always set the value for α to a number greater than zero and less than (or equal to) one.
-If α = 0, then the action-value function estimate is never updated by the agent.
-If α = 1, then the final value estimate for each state-action pair is always equal to the last return that was
-experienced by the agent (after visiting the pair).
+You should always set the value for α to a number greater than zero and less than (or equal to) one. If α = 0, then the
+action-value function estimate is never updated by the agent. If α = 1, then the final value estimate for each
+state-action pair is always equal to the last return that was experienced by the agent (after visiting the pair).
 
 Smaller values for α encourage the agent to consider a longer history of returns when calculating the action-value
 function estimate. Increasing the value of α ensures that the agent focuses more on the most recently sampled returns.
 
 **Important Note**: When implementing constant-α MC control, you must be careful to not set the value of α too close to
 
-1. This is because very large values can keep the algorithm from converging to the optimal policy π*. However, you must
+1. This is because very large values can keep the algorithm from converging to the optimal policy π\*. However, you must
    also be careful to not set the value of α too low, as this can result in an agent who learns too slowly. The best
-   value
-   of α for your implementation will greatly depend on your environment and is best gauged through trial-and-error.
+   value of α for your implementation will greatly depend on your environment and is best gauged through
+   trial-and-error.
 
 ### Summary
 
 **Optimal Policy and State-Value Function in Blackjack** (Sutton and Barto, 2017)
-
 
 <br>
 
@@ -2164,31 +2149,30 @@ function estimate. Increasing the value of α ensures that the agent focuses mor
 
 ### Monte Carlo Methods
 
-**Monte Carlo Methods**
-Even though the underlying problem involves a great degree of randomness, useful information can be inferred by
-collecting many samples. The equiprobable random policy is a stochastic policy where the agent randomly selects from the
-set of available actions in each state, with each action having an equal probability.
+**Monte Carlo Methods** Even though the underlying problem involves a great degree of randomness, useful information can
+be inferred by collecting many samples. The equiprobable random policy is a stochastic policy where the agent randomly
+selects from the set of available actions in each state, with each action having an equal probability.
 
 ### MC Prediction
 
-Algorithms that solve the prediction problem determine the value function \(v_\pi\) (or \(q_\pi\)) corresponding to a
-policy \(π\). For finite Markov Decision Processes (MDPs), we can estimate the action-value function \(q_\pi\) in a
+Algorithms that solve the prediction problem determine the value function \(v*\pi\) (or \(q*\pi\)) corresponding to a
+policy \(π\). For finite Markov Decision Processes (MDPs), we can estimate the action-value function \(q\_\pi\) in a
 table known as a Q-table. This table has one row for each state and one column for each action. The entry in the
 \(s\)-th row and \(a\)-th column contains the agent's estimate for expected return that is likely to follow if the agent
 starts in state \(s\), selects action \(a\), and then henceforth follows the policy \(π\).
 
 Each occurrence of the state-action pair \(s, a\) (\(s \in S, a \in A\)) in an episode is called a visit to \(s, a\).
 
-There are two types of MC prediction methods (for estimating \(q_\pi\)):
+There are two types of MC prediction methods (for estimating \(q\_\pi\)):
 
-1. **First-visit MC** estimates \(q_\pi(s, a)\) as the average of the returns following only the first visits to \(s,
+1. **First-visit MC** estimates \(q\_\pi(s, a)\) as the average of the returns following only the first visits to \(s,
    a\) (it ignores returns associated with later visits).
-2. **Every-visit MC** estimates \(q_\pi(s, a)\) as the average of the returns following all visits to \(s, a\).
+2. **Every-visit MC** estimates \(q\_\pi(s, a)\) as the average of the returns following all visits to \(s, a\).
 
 ### Greedy Policies
 
 A policy is greedy with respect to an action-value function estimate \(Q\) if, for every state \(s \in S\), it selects
-an action \(a \in A(s)\) such that \(a = \arg\max_{a \in A(s)} Q(s, a)\). The selected action is referred to as the
+an action \(a \in A(s)\) such that \(a = \arg\max\_{a \in A(s)} Q(s, a)\). The selected action is referred to as the
 greedy action.
 
 For a finite MDP, the action-value function estimate is represented in a Q-table. To get the greedy action(s), for each
@@ -2204,7 +2188,7 @@ A policy is \(ϵ\)-greedy with respect to an action-value function estimate \(Q\
 
 ### MC Control
 
-Algorithms designed to solve the control problem determine the optimal policy \(π^*\) from interaction with the
+Algorithms designed to solve the control problem determine the optimal policy \(π^\*\) from interaction with the
 environment. The Monte Carlo control method uses alternating rounds of policy evaluation and improvement to recover the
 optimal policy.
 
@@ -2227,7 +2211,7 @@ In this concept, we amend the policy evaluation step to update the Q-table after
 
 This concept derives the algorithm for constant-\(α\) MC control, which uses a constant step-size parameter \(α\). The
 step-size parameter \(α\) must satisfy \(0 < α ≤ 1\). Higher values of \(α\) result in faster learning, but if \(α\) is
-too high, it may prevent MC control from converging to \(π^*\).
+too high, it may prevent MC control from converging to \(π^\*\).
 
 ### Temporal Difference Methods
 
@@ -2258,7 +2242,7 @@ TD Error = R_{t+1} + γV(S_{t+1}) - V(S_t)
 
 Where:
 
-- R_{t+1} = immediate reward
+- R\_{t+1} = immediate reward
 - γ = discount factor
 - V(S) = value function
 
@@ -2269,25 +2253,25 @@ Where:
 - Most basic TD method
 - One-step look-ahead
 - Update formula:
-  ```
-  V(S_t) ← V(S_t) + α[R_{t+1} + γV(S_{t+1}) - V(S_t)]
-  ```
+    ```
+    V(S_t) ← V(S_t) + α[R_{t+1} + γV(S_{t+1}) - V(S_t)]
+    ```
 
 #### SARSA (On-Policy)
 
 - State-Action-Reward-State-Action
 - Updates Q-values using:
-  ```
-  Q(S_t,A_t) ← Q(S_t,A_t) + α[R_{t+1} + γQ(S_{t+1},A_{t+1}) - Q(S_t,A_t)]
-  ```
+    ```
+    Q(S_t,A_t) ← Q(S_t,A_t) + α[R_{t+1} + γQ(S_{t+1},A_{t+1}) - Q(S_t,A_t)]
+    ```
 
 #### Q-Learning (Off-Policy)
 
 - Learns optimal Q-values directly
 - Update formula:
-  ```
-  Q(S_t,A_t) ← Q(S_t,A_t) + α[R_{t+1} + γ max_a Q(S_{t+1},a) - Q(S_t,A_t)]
-  ```
+    ```
+    Q(S_t,A_t) ← Q(S_t,A_t) + α[R_{t+1} + γ max_a Q(S_{t+1},a) - Q(S_t,A_t)]
+    ```
 
 ### 3. Advantages vs Monte Carlo
 
@@ -2320,11 +2304,13 @@ Where:
 ### 5. Best Practices
 
 1. **State Representation**
+
     - Keep states meaningful
     - Avoid state explosion
     - Consider function approximation
 
 2. **Reward Design**
+
     - Clear learning signals
     - Avoid sparse rewards
     - Consider shaping rewards
@@ -2337,11 +2323,13 @@ Where:
 ### 6. Common Applications
 
 1. **Game Playing**
+
     - Board games
     - Video games
     - Real-time strategy
 
 2. **Robotics**
+
     - Navigation
     - Manipulation
     - Control
@@ -2378,7 +2366,7 @@ TD Error = R_{t+1} + γV(S_{t+1}) - V(S_t)
 
 Where:
 
-- R_{t+1} = immediate reward
+- R\_{t+1} = immediate reward
 - γ = discount factor
 - V(S) = value function
 
@@ -2389,25 +2377,25 @@ Where:
 - Most basic TD method
 - One-step look-ahead
 - Update formula:
-  ```
-  V(S_t) ← V(S_t) + α[R_{t+1} + γV(S_{t+1}) - V(S_t)]
-  ```
+    ```
+    V(S_t) ← V(S_t) + α[R_{t+1} + γV(S_{t+1}) - V(S_t)]
+    ```
 
 #### SARSA (On-Policy)
 
 - State-Action-Reward-State-Action
 - Updates Q-values using:
-  ```
-  Q(S_t,A_t) ← Q(S_t,A_t) + α[R_{t+1} + γQ(S_{t+1},A_{t+1}) - Q(S_t,A_t)]
-  ```
+    ```
+    Q(S_t,A_t) ← Q(S_t,A_t) + α[R_{t+1} + γQ(S_{t+1},A_{t+1}) - Q(S_t,A_t)]
+    ```
 
 #### Q-Learning (Off-Policy)
 
 - Learns optimal Q-values directly
 - Update formula:
-  ```
-  Q(S_t,A_t) ← Q(S_t,A_t) + α[R_{t+1} + γ max_a Q(S_{t+1},a) - Q(S_t,A_t)]
-  ```
+    ```
+    Q(S_t,A_t) ← Q(S_t,A_t) + α[R_{t+1} + γ max_a Q(S_{t+1},a) - Q(S_t,A_t)]
+    ```
 
 ### 3. Advantages vs Monte Carlo
 
@@ -2440,11 +2428,13 @@ Where:
 ### 5. Best Practices
 
 1. **State Representation**
+
     - Keep states meaningful
     - Avoid state explosion
     - Consider function approximation
 
 2. **Reward Design**
+
     - Clear learning signals
     - Avoid sparse rewards
     - Consider shaping rewards
@@ -2457,11 +2447,13 @@ Where:
 ### 6. Common Applications
 
 1. **Game Playing**
+
     - Board games
     - Video games
     - Real-time strategy
 
 2. **Robotics**
+
     - Navigation
     - Manipulation
     - Control
@@ -2486,20 +2478,20 @@ rate (α) to learn optimal policies. It alternates between two main steps: polic
 - Updates Q-table for each first visit to state-action pair (Sₜ, Aₜ)
 - Update equation:
 
-  ```textmate
-  Q(Sₜ, Aₜ) ← Q(Sₜ, Aₜ) + α(Gₜ - Q(Sₜ, Aₜ))
-  ```
+    ```textmate
+    Q(Sₜ, Aₜ) ← Q(Sₜ, Aₜ) + α(Gₜ - Q(Sₜ, Aₜ))
+    ```
 
-  where Gₜ := Σˢ₌ₜ₊₁ᵀ γˢ⁻ᵗ⁻¹Rₛ is the return at timestep t
+    where Gₜ := Σˢ₌ₜ₊₁ᵀ γˢ⁻ᵗ⁻¹Rₛ is the return at timestep t
 
 ### Policy Improvement:
 
 - Creates improved policy using ε-greedy strategy:
 
-  ```textmate
-  π' ← ε-greedy(Q)
-  π ← π'
-  ```
+    ```textmate
+    π' ← ε-greedy(Q)
+    π ← π'
+    ```
 
 ## How It Works
 
@@ -2513,7 +2505,7 @@ rate (α) to learn optimal policies. It alternates between two main steps: polic
 - α must be between 0 and 1 (0 < α ≤ 1)
 - Q(Sₜ, Aₜ) contains expected return estimate
 - When Gₜ ≠ Q(Sₜ, Aₜ), value is adjusted by α factor
-- Process continues until optimal policy π* is found
+- Process continues until optimal policy π\* is found
 
 The key insight is that the algorithm gradually improves the policy through iterative evaluation and improvement steps,
 using a constant learning rate to balance between old and new information.
@@ -2547,14 +2539,17 @@ Where:
 ## Key Differences:
 
 1. **Time Horizon**:
+
     - MC: Uses complete episode return ($G_t$)
     - TD: Uses one-step reward + estimated future value
 
 2. **Update Timing**:
+
     - MC: Updates after episode completion
     - TD: Updates at each time step
 
 3. **Bootstrapping**:
+
     - MC: No bootstrapping, uses actual returns
     - TD: Bootstraps from current estimates
 
@@ -2564,8 +2559,6 @@ Where:
 
 This comparison shows how TD methods provide more immediate updates but rely on estimated future values, while MC
 methods wait for actual returns but provide unbiased estimates.
-
-
 
 <br>
 
@@ -2639,11 +2632,13 @@ For each episode:
 ## Important Considerations
 
 1. **Learning Rate (α)**
+
     - Too high: Unstable learning
     - Too low: Slow learning
     - Typical range: 0.1 to 0.5
 
 2. **Exploration Strategy**
+
     - Usually ε-greedy
     - Balance exploration/exploitation
     - Decrease ε over time
@@ -2673,7 +2668,7 @@ For each episode:
 ## Simple Explanation
 
 Sarsamax, also known as Q-learning, is an off-policy TD control method that learns directly about the optimal value
-function Q*, regardless of the policy being followed. The key difference from SARSA is that it uses the maximum Q-value
+function Q\*, regardless of the policy being followed. The key difference from SARSA is that it uses the maximum Q-value
 for the next state, rather than the Q-value of the actual next action taken.
 
 ## Core Update Formula
@@ -2704,6 +2699,7 @@ Q(St, At) ← Q(St, At) + α[Rt+1 + γ max_a Q(St+1, a) - Q(St, At)]
 ## Differences from SARSA
 
 1. **Value Selection**:
+
     - SARSA: Uses actual next action value
     - Sarsamax: Uses maximum next action value
 
@@ -2768,9 +2764,10 @@ Where:
 3. Observe reward Rt+1 and next state St+1
 4. Calculate expected value of next state:
 
-   ```textmate
-   Expected_Value = Σa π(a|St+1)Q(St+1, a)
-   ```
+    ```textmate
+    Expected_Value = Σa π(a|St+1)Q(St+1, a)
+    ```
+
 5. Update Q-value using Expected SARSA formula
 
 ### For ε-greedy Policy:
@@ -2824,7 +2821,7 @@ that:
 # In Theory
 
 All of the TD control algorithms we have examined (Sarsa, Sarsamax, Expected Sarsa) are guaranteed to converge to the
-optimal action-value function q*, as long as the step-size parameter α is sufficiently small, and the GLIE conditions
+optimal action-value function q\*, as long as the step-size parameter α is sufficiently small, and the GLIE conditions
 are met.
 
 Once we have a good estimate for q*, a corresponding optimal policy π* can then be quickly obtained by setting π*(s) =
@@ -2919,6 +2916,7 @@ Methods that learn directly from experience without requiring a model of the env
 ### Model-Based vs Model-Free
 
 1. **Model-Based**:
+
     - Requires environment model
     - More data efficient
     - Computationally intensive
@@ -2933,11 +2931,13 @@ Methods that learn directly from experience without requiring a model of the env
 ### Features
 
 1. **Dynamic Programming**:
+
     - Perfect model required
     - Optimal solution guaranteed
     - Limited to small state spaces
 
 2. **Monte Carlo**:
+
     - No model required
     - Episode-based learning
     - High variance, unbiased
@@ -3205,8 +3205,7 @@ for prediction) or qπ(s,a) (for control).
 
 We can do this by choosing a parameterized function that approximates the true value function:
 
-v̂(s,w) ≈ vπ(s)
-q̂(s,a,w) ≈ qπ(s,a)
+v̂(s,w) ≈ vπ(s) q̂(s,a,w) ≈ qπ(s,a)
 
 Our goal then reduces to finding a set of parameters w that yield an optimal value function. We can use the general
 reinforcement learning framework, with a Monte-Carlo or Temporal-Difference approach, and modify the update mechanism
@@ -3244,16 +3243,14 @@ J(w) = Eπ[(vπ(s) - x(s)ᵀw)²]
 
 ### Update Rule:
 
-Δw = -α(1/2)∇wJ(w)
-= α(vπ(s) - x(s)ᵀw)x(s)
+Δw = -α(1/2)∇wJ(w) = α(vπ(s) - x(s)ᵀw)x(s)
 
 - α is learning rate
 - Updates parameters in direction of steepest descent
 
 ### Special Note:
 
-derivative w.r.t. w:
-∇wv̂(s,w) = x(s)
+derivative w.r.t. w: ∇wv̂(s,w) = x(s)
 
 This shows the complete gradient descent process for updating the value function approximation in continuous state
 spaces, using linear function approximation with feature vectors.
@@ -3333,7 +3330,6 @@ w ← w - α∇wJ(w)
 
 <br>
 
-
 <br>
 
 ![localImage](images/learning.png)
@@ -3346,8 +3342,7 @@ w ← w - α∇wJ(w)
 
 ## Basic Formula
 
-Deep Q-Network approximates action-value function using neural network:
-$Q(s,a;\theta) \approx Q^*(s,a)$
+Deep Q-Network approximates action-value function using neural network: $Q(s,a;\theta) \approx Q^*(s,a)$
 
 ## Key Components
 
@@ -3380,21 +3375,22 @@ $a_t = \begin{cases}
 ## Algorithm
 
 1. **Initialize**:
+
     - Q-network $Q(s,a;\theta)$ with random weights
     - Target network $Q(s,a;\theta^-)$ with $\theta^- = \theta$
     - Replay buffer $D$
 
 2. **For each step**:
-   ```textmate
-   Observe state s
-   Select action a using ε-greedy
-   Execute a, observe r, s'
-   Store (s,a,r,s') in D
-   Sample minibatch from D
-   Compute target: y = r + γ max_a' Q(s',a';θ⁻)
-   Update θ using gradient: ∇_θ(y - Q(s,a;θ))²
-   Every N steps: θ⁻ ← θ
-   ```
+    ```textmate
+    Observe state s
+    Select action a using ε-greedy
+    Execute a, observe r, s'
+    Store (s,a,r,s') in D
+    Sample minibatch from D
+    Compute target: y = r + γ max_a' Q(s',a';θ⁻)
+    Update θ using gradient: ∇_θ(y - Q(s,a;θ))²
+    Every N steps: θ⁻ ← θ
+    ```
 
 ## Key Innovations
 
@@ -3419,8 +3415,7 @@ $s \in \mathbb{R}^n$ (state space)
 
 ### Hidden Layers:
 
-$h_1 = \text{ReLU}(W_1s + b_1)$
-$h_2 = \text{ReLU}(W_2h_1 + b_2)$
+$h_1 = \text{ReLU}(W_1s + b_1)$ $h_2 = \text{ReLU}(W_2h_1 + b_2)$
 
 ### Output Layer:
 
@@ -3437,14 +3432,11 @@ $Q(s,\cdot) = W_3h_2 + b_3$
 
 ## Performance Improvements
 
-1. Prioritized Experience Replay:
-   $P(i) \propto |\delta_i|^\alpha$
+1. Prioritized Experience Replay: $P(i) \propto |\delta_i|^\alpha$
 
-2. Dueling Networks:
-   $Q(s,a;\theta) = V(s;\theta_v) + A(s,a;\theta_a)$
+2. Dueling Networks: $Q(s,a;\theta) = V(s;\theta_v) + A(s,a;\theta_a)$
 
-3. Noisy Networks:
-   $y = (μ_w + σ_w ⊙ ε)x + (μ_b +
+3. Noisy Networks: $y = (μ_w + σ_w ⊙ ε)x + (μ_b +
 
 ### Deep Q-Network (DQN)
 
@@ -3535,13 +3527,14 @@ $Q(s,a;\theta) \approx Q^*(s,a)$
 - Input: State (e.g., preprocessed game frames)
 - Output: Q-values for each possible action
 - Structure:
-  ```
-  Input → Convolutional Layers → Fully Connected Layers → Output (Q-values)
-  ```
+    ```
+    Input → Convolutional Layers → Fully Connected Layers → Output (Q-values)
+    ```
 
 ## Main Features
 
 1. Input Processing:
+
     - 84x84 grayscale images
     - Stack of 4 frames for temporal information
 
@@ -3562,6 +3555,7 @@ $D = \{(s_t, a_t, r_t, s_{t+1})\}$ (Replay Buffer)
 ## Key Components
 
 1. Storage:
+
     - Experience tuple: $(s_t, a_t, r_t, s_{t+1})$
     - Fixed-size buffer
     - FIFO when buffer is full
@@ -3598,6 +3592,7 @@ Where:
 ## Implementation
 
 1. Maintain two networks:
+
     - Primary network (updated continuously)
     - Target network (updated periodically)
 
@@ -3623,8 +3618,8 @@ Where:
 
 - Incorrect: The networks have identical architectures
 
-3. ❌ "Every time we update the primary Q-Network, we immediately update the target Q-Network weights, so that they match
-   after each learning step."
+3. ❌ "Every time we update the primary Q-Network, we immediately update the target Q-Network weights, so that they
+   match after each learning step."
 
 - Incorrect: Target network is updated less frequently to maintain stability
 
@@ -3740,34 +3735,31 @@ understand well, making learning more efficient than if you reviewed everything 
 
 # TD error delta
 
-Criteria used to assign priorities to each tuple
-Formula: $\delta_t = R_{t+1} + \gamma \max_a \hat{q}(S_{t+1}, a, w) - \hat{q}(S_t, A_t, w)$
-The bigger the error, the more we expect to learn from that tuple
+Criteria used to assign priorities to each tuple Formula:
+$\delta_t = R_{t+1} + \gamma \max_a \hat{q}(S_{t+1}, a, w) - \hat{q}(S_t, A_t, w)$ The bigger the error, the more we
+expect to learn from that tuple
 
 # Measure of Priority
 
-The magnitude of TD error
-Formula: $p_t = |\delta_t|$
-Priority is stored along with each corresponding tuple in the replay buffer
+The magnitude of TD error Formula: $p_t = |\delta_t|$ Priority is stored along with each corresponding tuple in the
+replay buffer
 
 # Sampling Probability
 
-Computed from priority when creating batches
-Formula: $P(i) = \frac{p_i}{\sum_k p_k}$
+Computed from priority when creating batches Formula: $P(i) = \frac{p_i}{\sum_k p_k}$
 
 # Improvement on Prioritized Experience Replay
 
 ## TD Error is Zero
 
 Problem: If the TD error is zero, then the priority value of the tuple and hence its probability of being picked will
-also be zero.
-Solution: To prevent tuples from being starved for selection, add small constant ε: $p_t = |\delta_t| + \epsilon$
+also be zero. Solution: To prevent tuples from being starved for selection, add small constant ε:
+$p_t = |\delta_t| + \epsilon$
 
 ## Greedy Usage of Priority Values
 
-Problem: Greedily using priority values may lead to a small subset of experiences being replayed repeatedly.
-Solution: Reintroduce uniform random sampling with parameter α:
-$P(i) = \frac{p_i^α}{\sum_k p_k^α}$
+Problem: Greedily using priority values may lead to a small subset of experiences being replayed repeatedly. Solution:
+Reintroduce uniform random sampling with parameter α: $P(i) = \frac{p_i^α}{\sum_k p_k^α}$
 
 # Adjustment to the Update Rule
 
