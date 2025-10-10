@@ -1,0 +1,20 @@
+{
+  "Block Math": {
+    "prefix": "$$",
+    "body": [
+      "$$",
+      "$1",
+      "$$"
+    ],
+    "description": "Insert block-style LaTeX math equation"
+  },
+  "Convert Inline to Block Math": {
+    "prefix": "mathblock",
+    "body": [
+      "$$",
+      "${TM_SELECTED_TEXT}",
+      "$$"
+    ],
+    "description": "Convert selected inline math to block format"
+  }
+}
